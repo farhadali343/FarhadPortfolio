@@ -1,16 +1,14 @@
 import { FormEvent, useState } from 'react';
 import {
   ArrowRight,
+  ArrowUpRight,
   AtSign,
-  Bookmark,
   Check,
   Copy,
   Facebook,
   Film,
-  Instagram,
   Mail,
   ShoppingBag,
-  Store,
   Youtube,
 } from 'lucide-react';
 import { CONTACT_CONFIG, PROFILE } from '../data/portfolioData';
@@ -32,17 +30,6 @@ const PROJECT_TYPES = [
   'Editorial & SEO Writing',
   'General Collaboration',
 ] as const;
-
-function getChannelIcon(id: string) {
-  if (id.startsWith('yt-')) return Youtube;
-  if (id.startsWith('ig-')) return Instagram;
-  if (id.startsWith('threads-')) return AtSign;
-  if (id.startsWith('fb-')) return Facebook;
-  if (id.startsWith('pinterest-') || id.startsWith('benable-')) return Bookmark;
-  if (id.startsWith('tt-')) return Film;
-  if (id.startsWith('shopify-')) return Store;
-  return ShoppingBag;
-}
 
 export default function Contact() {
   const [name, setName] = useState('');
@@ -119,10 +106,25 @@ export default function Contact() {
     }
   };
 
-  const verifiedLinks = [
-    ...CONTACT_CONFIG.socialLinks.filter((item) => Boolean(item.href) && !item.isPlaceholder),
-    ...CONTACT_CONFIG.channelLinks.filter((item) => Boolean(item.href) && !item.isPlaceholder),
-  ];
+  const allLinks = [...CONTACT_CONFIG.socialLinks, ...CONTACT_CONFIG.channelLinks].filter(
+    (item) => Boolean(item.href) && !item.isPlaceholder
+  );
+
+  const youtubeLinks = allLinks.filter((item) => item.id.startsWith('yt-'));
+  const tiktokLinks = allLinks.filter((item) => item.id.startsWith('tt-'));
+  const facebookLinks = allLinks.filter((item) => item.id.startsWith('fb-'));
+  const socialLinks = allLinks.filter(
+    (item) => item.id.startsWith('ig-') || item.id.startsWith('threads-')
+  );
+  const storeAndCurationLinks = allLinks.filter(
+    (item) =>
+      item.id.startsWith('shopify-') ||
+      item.id.startsWith('fourthwall-') ||
+      item.id.startsWith('pinterest-') ||
+      item.id.startsWith('benable-') ||
+      item.id.startsWith('medium-') ||
+      item.id.startsWith('app-')
+  );
 
   return (
     <section
@@ -158,7 +160,7 @@ export default function Contact() {
 
         {/* Two-Column Contact Studio */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          {/* Left Column: Availability, One-Click Email Copy, & Verified Icon Links */}
+          {/* Left Column: Availability, One-Click Email Copy, & Cleanly Grouped Channels */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             <TiltCard3D
               maxTilt={4}
@@ -207,36 +209,142 @@ export default function Contact() {
               </div>
             </TiltCard3D>
 
+            {/* Cleanly Separated Platform Directory */}
             <TiltCard3D
               maxTilt={3.5}
               liftZ={6}
-              className="flex-1 rounded-2xl bg-white border border-slate-200/90 studio-card-shadow p-7 sm:p-8 flex flex-col justify-between"
+              className="flex-1 rounded-2xl bg-white border border-slate-200/90 studio-card-shadow p-7 sm:p-8"
             >
-              <div>
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-[#475569] mb-5">
-                  Verified Channels &amp; Profiles
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {verifiedLinks.map((item) => {
-                    const Icon = getChannelIcon(item.id);
-                    return (
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-[#475569] mb-5">
+                Channels &amp; Profiles
+              </h3>
+
+              <div className="divide-y divide-slate-100">
+                {/* 1. YouTube Channels (Grouped Together) */}
+                <div className="pb-4">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-[#0F172A] mb-2.5">
+                    <Youtube className="w-4 h-4 text-[#2563EB]" strokeWidth={1.75} />
+                    <span>YouTube Channels</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {youtubeLinks.map((item) => (
                       <a
                         key={item.id}
                         href={item.href!}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group flex items-center gap-2.5 rounded-xl bg-[#F8FAFC] border border-slate-200/80 px-3.5 py-2.5 text-xs hover:border-[#2563EB]/50 hover:bg-white transition-colors"
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-[#F8FAFC] border border-slate-200/90 px-3 py-1.5 text-xs font-medium text-[#0F172A] hover:border-[#2563EB]/50 hover:text-[#2563EB] transition-colors"
                       >
-                        <Icon className="w-4 h-4 text-[#2563EB] shrink-0" strokeWidth={1.7} />
-                        <div className="min-w-0">
-                          <div className="font-semibold text-[#0F172A] group-hover:text-[#2563EB] truncate">
-                            {item.label.split(' — ')[0]}
-                          </div>
-                          <div className="text-[11px] text-[#475569] truncate">{item.value}</div>
-                        </div>
+                        <span>{item.value}</span>
+                        <ArrowUpRight className="w-3 h-3 text-slate-400" />
                       </a>
-                    );
-                  })}
+                    ))}
+                  </div>
+                </div>
+
+                {/* 2. TikTok (Separate Group) */}
+                <div className="py-4">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-[#0F172A] mb-2.5">
+                    <Film className="w-4 h-4 text-[#2563EB]" strokeWidth={1.75} />
+                    <span>TikTok</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {tiktokLinks.map((item) => (
+                      <a
+                        key={item.id}
+                        href={item.href!}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-[#F8FAFC] border border-slate-200/90 px-3 py-1.5 text-xs font-medium text-[#0F172A] hover:border-[#2563EB]/50 hover:text-[#2563EB] transition-colors"
+                      >
+                        <span>{item.value}</span>
+                        <ArrowUpRight className="w-3 h-3 text-slate-400" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 3. Facebook (Separate Group) */}
+                <div className="py-4">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-[#0F172A] mb-2.5">
+                    <Facebook className="w-4 h-4 text-[#2563EB]" strokeWidth={1.75} />
+                    <span>Facebook</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {facebookLinks.map((item) => (
+                      <a
+                        key={item.id}
+                        href={item.href!}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-[#F8FAFC] border border-slate-200/90 px-3 py-1.5 text-xs font-medium text-[#0F172A] hover:border-[#2563EB]/50 hover:text-[#2563EB] transition-colors"
+                      >
+                        <span>Farhad Ali (Business Page)</span>
+                        <ArrowUpRight className="w-3 h-3 text-slate-400" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 4. Instagram & Threads */}
+                <div className="py-4">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-[#0F172A] mb-2.5">
+                    <AtSign className="w-4 h-4 text-[#2563EB]" strokeWidth={1.75} />
+                    <span>Instagram &amp; Threads</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {socialLinks.map((item) => (
+                      <a
+                        key={item.id}
+                        href={item.href!}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-[#F8FAFC] border border-slate-200/90 px-3 py-1.5 text-xs font-medium text-[#0F172A] hover:border-[#2563EB]/50 hover:text-[#2563EB] transition-colors"
+                      >
+                        <span>
+                          {item.label}: {item.value}
+                        </span>
+                        <ArrowUpRight className="w-3 h-3 text-slate-400" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 5. Stores, Publications & Web Apps */}
+                <div className="pt-4">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-[#0F172A] mb-2.5">
+                    <ShoppingBag className="w-4 h-4 text-[#C28E36]" strokeWidth={1.75} />
+                    <span>Stores, Publications &amp; Web Apps</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {storeAndCurationLinks.map((item) => {
+                      const shortName = item.id.startsWith('shopify-')
+                        ? 'EleCoStudio (Shopify)'
+                        : item.id.startsWith('fourthwall-')
+                          ? 'POV Narrative Shop'
+                          : item.id.startsWith('pinterest-')
+                            ? 'Pinterest (@easyfinds_us)'
+                            : item.id.startsWith('medium-')
+                              ? 'Medium Publication'
+                              : item.id === 'app-automation-editor'
+                                ? 'Automation Editor'
+                                : item.id === 'app-paktransfer'
+                                  ? 'PakTransfer'
+                                  : 'Benable';
+                      return (
+                        <a
+                          key={item.id}
+                          href={item.href!}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 rounded-lg bg-[#F8FAFC] border border-slate-200/90 px-3 py-1.5 text-xs font-medium text-[#0F172A] hover:border-[#2563EB]/50 hover:text-[#2563EB] transition-colors"
+                        >
+                          <span>{shortName}</span>
+                          <ArrowUpRight className="w-3 h-3 text-slate-400" />
+                        </a>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </TiltCard3D>

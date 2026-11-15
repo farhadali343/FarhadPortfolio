@@ -147,10 +147,37 @@ export function generateResumePdf(): void {
   );
   y += 5.5;
 
-  const businessLinks = CONTACT_CONFIG.socialLinks.filter((l) => l.href && !l.isPlaceholder);
-  const channelLinks = CONTACT_CONFIG.channelLinks.filter((l) => l.href && !l.isPlaceholder);
-  addLinkRow('Business Profiles', businessLinks);
-  addLinkRow('Channels & Stores', channelLinks);
+  const allVerifiedLinks = [...CONTACT_CONFIG.socialLinks, ...CONTACT_CONFIG.channelLinks].filter(
+    (l) => l.href && !l.isPlaceholder
+  );
+  addLinkRow(
+    'YouTube',
+    allVerifiedLinks.filter((l) => l.id.startsWith('yt-'))
+  );
+  addLinkRow(
+    'TikTok',
+    allVerifiedLinks.filter((l) => l.id.startsWith('tt-'))
+  );
+  addLinkRow(
+    'Facebook & Social',
+    allVerifiedLinks.filter(
+      (l) => l.id.startsWith('fb-') || l.id.startsWith('ig-') || l.id.startsWith('threads-')
+    )
+  );
+  addLinkRow(
+    'Stores & Discovery',
+    allVerifiedLinks.filter(
+      (l) =>
+        l.id.startsWith('shopify-') ||
+        l.id.startsWith('fourthwall-') ||
+        l.id.startsWith('pinterest-') ||
+        l.id.startsWith('benable-')
+    )
+  );
+  addLinkRow(
+    'Writing & Web Apps',
+    allVerifiedLinks.filter((l) => l.id.startsWith('medium-') || l.id.startsWith('app-'))
+  );
 
   // 2. Professional Summary
   addSectionHeader('Professional Summary');

@@ -200,47 +200,94 @@ export default function ResumeSection({
                     </div>
                   </div>
 
-                  {(featuredBusiness.length > 0 || featuredChannels.length > 0) && (
-                    <div className="mt-4 pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                      <div>
-                        <div className="font-semibold text-[#0F172A] mb-1">Business Profiles</div>
-                        <div className="flex flex-wrap gap-x-3 gap-y-1 text-slate-600">
-                          {featuredBusiness.map((item) => (
-                            <a
-                              key={item.id}
-                              href={item.href!}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-[#2563EB] hover:underline"
-                            >
-                              <span>{item.label}</span>
-                              <ExternalLink className="w-3 h-3 no-print" />
-                            </a>
-                          ))}
-                        </div>
-                      </div>
+                  {(featuredBusiness.length > 0 || featuredChannels.length > 0) && (() => {
+                    const allHeaderLinks = [...featuredBusiness, ...featuredChannels];
+                    const yt = allHeaderLinks.filter((i) => i.id.startsWith('yt-'));
+                    const tt = allHeaderLinks.filter((i) => i.id.startsWith('tt-'));
+                    const fb = allHeaderLinks.filter((i) => i.id.startsWith('fb-'));
+                    const other = allHeaderLinks.filter(
+                      (i) => !i.id.startsWith('yt-') && !i.id.startsWith('tt-') && !i.id.startsWith('fb-')
+                    );
 
-                      <div>
-                        <div className="font-semibold text-[#0F172A] mb-1">
-                          Channels &amp; Storefronts
+                    return (
+                      <div className="mt-4 pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5 text-xs">
+                        <div className="space-y-1.5">
+                          <div>
+                            <span className="font-semibold text-[#0F172A]">YouTube: </span>
+                            <span className="text-[#475569]">
+                              {yt.map((item, idx) => (
+                                <span key={item.id}>
+                                  <a
+                                    href={item.href!}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[#2563EB] hover:underline"
+                                  >
+                                    {item.value}
+                                  </a>
+                                  {idx < yt.length - 1 ? ' · ' : ''}
+                                </span>
+                              ))}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="font-semibold text-[#0F172A]">TikTok: </span>
+                            <span className="text-[#475569]">
+                              {tt.map((item, idx) => (
+                                <span key={item.id}>
+                                  <a
+                                    href={item.href!}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[#2563EB] hover:underline"
+                                  >
+                                    {item.value}
+                                  </a>
+                                  {idx < tt.length - 1 ? ' · ' : ''}
+                                </span>
+                              ))}
+                            </span>
+                          </div>
                         </div>
-                        <div className="flex flex-wrap gap-x-3 gap-y-1 text-slate-600">
-                          {featuredChannels.map((item) => (
-                            <a
-                              key={item.id}
-                              href={item.href!}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-[#2563EB] hover:underline"
-                            >
-                              <span>{item.value}</span>
-                              <ExternalLink className="w-3 h-3 no-print" />
-                            </a>
-                          ))}
+
+                        <div className="space-y-1.5">
+                          <div>
+                            <span className="font-semibold text-[#0F172A]">Facebook: </span>
+                            {fb.map((item) => (
+                              <a
+                                key={item.id}
+                                href={item.href!}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[#2563EB] hover:underline"
+                              >
+                                {item.value}
+                              </a>
+                            ))}
+                          </div>
+                          <div>
+                            <span className="font-semibold text-[#0F172A]">Social &amp; Stores: </span>
+                            <span className="text-[#475569]">
+                              {other.map((item, idx) => (
+                                <span key={item.id}>
+                                  <a
+                                    href={item.href!}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-0.5 text-[#2563EB] hover:underline"
+                                  >
+                                    <span>{item.label.split(' — ')[0]}</span>
+                                    <ExternalLink className="w-2.5 h-2.5 no-print" />
+                                  </a>
+                                  {idx < other.length - 1 ? ' · ' : ''}
+                                </span>
+                              ))}
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )}
+                    );
+                  })()}
                 </header>
 
                 {/* 2. Professional Summary */}

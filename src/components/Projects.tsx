@@ -36,7 +36,7 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
             </h2>
           </div>
           <p className="text-sm sm:text-base text-[#475569] max-w-[46ch] leading-relaxed">
-            Production channels, editorial publications, storefronts, and AI prototypes built from
+            Production channels, editorial publications, storefronts, and web systems built from
             concept to release.
           </p>
         </div>

@@ -3,6 +3,10 @@ import fordInvestsImg from '../assets/images/project_ford_invests_1794735733605.
 import whatTheByteImg from '../assets/images/project_whatthebyte_1794735733761.jpg';
 import easyFindsImg from '../assets/images/project_easy_finds_1794735734343.jpg';
 import aiWorkflowImg from '../assets/images/project_ai_workflow_1794735736078.jpg';
+import ecommerceStorefrontImg from '../assets/images/project_ecommerce_storefront_1794746708971.jpg';
+import editorialMediumImg from '../assets/images/project_editorial_medium_1794746709504.jpg';
+import shortformReelsImg from '../assets/images/project_shortform_reels_1794746709572.jpg';
+import webPrototypeImg from '../assets/images/project_web_prototype_1794746707287.jpg';
 
 export type ContentStatus = 'verified' | 'pending_confirmation' | 'in_progress';
 export type AttributionLevel = 'Hands-on' | 'AI-assisted / Directed' | 'Learning / Experimental';
@@ -106,7 +110,7 @@ export type CuratedProjectTab =
   | 'YouTube & Video'
   | 'Social & Content'
   | 'E-Commerce & Affiliate'
-  | 'AI & Web Prototypes';
+  | 'Web & Product Systems';
 
 export type ProjectCategory =
   | 'All Projects'
@@ -304,6 +308,13 @@ export const CONTACT_CONFIG: ContactConfig = {
       href: 'https://benable.com/farhad',
       isPlaceholder: false,
     },
+    {
+      id: 'medium-farhad',
+      label: 'Medium',
+      value: 'farhadaliofficial.medium.com',
+      href: 'https://farhadaliofficial.medium.com',
+      isPlaceholder: false,
+    },
   ],
   channelLinks: [
     {
@@ -353,6 +364,20 @@ export const CONTACT_CONFIG: ContactConfig = {
       label: 'Shopify — EleCoStudio',
       value: 'elecostudio.shop',
       href: 'http://elecostudio.shop/',
+      isPlaceholder: false,
+    },
+    {
+      id: 'app-automation-editor',
+      label: 'Web App — Automation Editor',
+      value: 'automationeditor.ai.studio',
+      href: 'https://automationeditor.ai.studio/',
+      isPlaceholder: false,
+    },
+    {
+      id: 'app-paktransfer',
+      label: 'Web App — PakTransfer',
+      value: 'paktransfer.ai.studio',
+      href: 'https://paktransfer.ai.studio/',
       isPlaceholder: false,
     },
   ],
@@ -681,7 +706,7 @@ export const CURATED_PROJECT_TABS: CuratedProjectTab[] = [
   'YouTube & Video',
   'Social & Content',
   'E-Commerce & Affiliate',
-  'AI & Web Prototypes',
+  'Web & Product Systems',
 ];
 
 export const PROJECT_CATEGORIES: ProjectCategory[] = [
@@ -856,13 +881,13 @@ export const PROJECTS: ProjectCaseStudy[] = [
   },
   {
     id: 'farhad-muse-ai',
-    title: 'Farhad Muse AI',
+    title: 'Farhad Muse',
     primaryCategory: 'Social Media',
     categories: ['Social Media', 'Video Production', 'AI & Digital Projects'],
-    curatedTabs: ['Social & Content', 'AI & Web Prototypes'],
-    categoryEyebrow: 'SOCIAL & AI WORKFLOWS',
+    curatedTabs: ['Social & Content', 'Web & Product Systems'],
+    categoryEyebrow: 'SOCIAL & CONTENT SYSTEMS',
     cardSummary:
-      'Multi-platform creator brand sharing AI workflows & freelancing systems — 12 short-form Reels shipped.',
+      'Multi-platform creator brand sharing creative workflows & freelancing systems — 12 short-form Reels shipped.',
     role: 'Founder, Creative Director & Social Operator',
     status: 'verified',
     statusLabel: 'Social Brand',
@@ -995,8 +1020,8 @@ export const PROJECTS: ProjectCaseStudy[] = [
     tools: ['Benable', 'Google Docs', 'Product Research Workflows'],
     deliverables: ['Benable curation hub', 'Structured recommendation lists'],
     results: [{ metric: 'Curated Lists', context: 'Public Benable recommendation catalog' }],
-    image: null,
-    imageAlt: 'Benable curated product recommendation lists plate',
+    image: ecommerceStorefrontImg,
+    imageAlt: 'Curated product packaging and lifestyle accessories representing Benable curated lists',
     visualCode: '',
     externalLinks: [
       {
@@ -1042,8 +1067,8 @@ export const PROJECTS: ProjectCaseStudy[] = [
     tools: ['TikTok', 'FFmpeg', 'AI Voice Workflows', 'Canva'],
     deliverables: ['Active TikTok channels (@pov.life.ouline, @theoshow22)'],
     results: [{ metric: '3 Active Channels', context: '@whatthebyte, @pov.life.ouline, @theoshow22' }],
-    image: null,
-    imageAlt: 'Short-Form Video Channels TikTok production plate',
+    image: shortformReelsImg,
+    imageAlt: 'Vertical smartphone on studio stand displaying vertical motion frames for TikTok network',
     visualCode: '',
     externalLinks: [
       {
@@ -1095,8 +1120,8 @@ export const PROJECTS: ProjectCaseStudy[] = [
     tools: ['Blogger', 'Google Docs', 'SEO Research Workflows'],
     deliverables: ['Long-form finance & business articles', 'Comparison guides'],
     results: [{ metric: 'Editorial Blog', context: 'Structured SEO & comparison publishing' }],
-    image: null,
-    imageAlt: 'What If Money editorial research and affiliate publishing plate',
+    image: fordInvestsImg,
+    imageAlt: 'Structured financial research blocks and editorial composition for What If Money',
     visualCode: '',
     externalLinks: [],
   },
@@ -1137,10 +1162,16 @@ export const PROJECTS: ProjectCaseStudy[] = [
     tools: ['Medium', 'Google Docs', 'Research Workflows'],
     deliverables: ['80 published Medium stories'],
     results: [{ metric: '80 Stories', context: 'Long-form essays published on Medium' }],
-    image: null,
-    imageAlt: 'Medium — Farhad Ali editorial writing showcase plate',
+    image: editorialMediumImg,
+    imageAlt: 'Architectural editorial notebook and cobalt layout spreads representing Medium essays',
     visualCode: '',
-    externalLinks: [],
+    externalLinks: [
+      {
+        label: 'Medium — farhadaliofficial.medium.com',
+        url: 'https://farhadaliofficial.medium.com',
+        isPending: false,
+      },
+    ],
   },
   {
     id: 'short-form-creative-batches',
@@ -1180,8 +1211,8 @@ export const PROJECTS: ProjectCaseStudy[] = [
     tools: ['Remotion', 'FFmpeg', 'HTML/JS Canvas Direction', 'Python-Assisted Workflows'],
     deliverables: ['Educational & beat-sync Reels', 'Motion pacing templates'],
     results: [{ metric: '5+ Verified Series', context: 'Completed short-form technical & animation studies' }],
-    image: null,
-    imageAlt: 'Short-Form Motion and Educational Reels visual study plate',
+    image: povNarrativeImg,
+    imageAlt: 'Studio storyboard monitor and audio desk representing Motion & Educational Reels',
     visualCode: '',
     externalLinks: [],
   },
@@ -1190,7 +1221,7 @@ export const PROJECTS: ProjectCaseStudy[] = [
     title: 'Automation Editor',
     primaryCategory: 'AI & Digital Projects',
     categories: ['AI & Digital Projects', 'Video Production'],
-    curatedTabs: ['AI & Web Prototypes'],
+    curatedTabs: ['Web & Product Systems'],
     categoryEyebrow: 'WEB WORKFLOW PROTOTYPE',
     cardSummary:
       'Browser-based creative workflow utility prototype directed from product scoping through iterative UI design.',
@@ -1222,17 +1253,23 @@ export const PROJECTS: ProjectCaseStudy[] = [
     tools: ['Google AI Studio', 'Project Documentation'],
     deliverables: ['Working browser prototype'],
     results: [{ metric: 'Prototype', context: 'Browser workflow utility in active development' }],
-    image: null,
-    imageAlt: 'Automation Editor interface blueprint',
+    image: webPrototypeImg,
+    imageAlt: 'Minimalist studio laptop displaying sleek modular workspace UI for Automation Editor',
     visualCode: '',
-    externalLinks: [],
+    externalLinks: [
+      {
+        label: 'Live App — automationeditor.ai.studio',
+        url: 'https://automationeditor.ai.studio/',
+        isPending: false,
+      },
+    ],
   },
   {
     id: 'paktransfer',
     title: 'PakTransfer',
     primaryCategory: 'AI & Digital Projects',
     categories: ['AI & Digital Projects'],
-    curatedTabs: ['AI & Web Prototypes'],
+    curatedTabs: ['Web & Product Systems'],
     categoryEyebrow: 'DIGITAL UTILITY CONCEPT',
     cardSummary:
       'Streamlined regional digital transfer utility concept mapping clean user journeys and interface clarity.',
@@ -1262,17 +1299,23 @@ export const PROJECTS: ProjectCaseStudy[] = [
     tools: ['Google AI Studio', 'UX Flow Mapping'],
     deliverables: ['Concept prototype'],
     results: [{ metric: 'Concept UX', context: 'Validated core regional utility flows' }],
-    image: null,
-    imageAlt: 'PakTransfer platform concept plate',
+    image: aiWorkflowImg,
+    imageAlt: 'Clean digital desk workstation representing PakTransfer product concept',
     visualCode: '',
-    externalLinks: [],
+    externalLinks: [
+      {
+        label: 'Live App — paktransfer.ai.studio',
+        url: 'https://paktransfer.ai.studio/',
+        isPending: false,
+      },
+    ],
   },
   {
     id: 'what-if-animation-studio',
     title: 'What If Animation Studio',
     primaryCategory: 'Video Production',
     categories: ['Video Production', 'AI & Digital Projects'],
-    curatedTabs: ['YouTube & Video', 'AI & Web Prototypes'],
+    curatedTabs: ['YouTube & Video', 'Web & Product Systems'],
     categoryEyebrow: 'ANIMATION R&D',
     cardSummary:
       'Pre-production animation R&D pipeline testing character consistency, storyboards, and timed narration.',
@@ -1303,8 +1346,8 @@ export const PROJECTS: ProjectCaseStudy[] = [
     tools: ['Google Flow', 'Nano Banana Pro', 'AI Voice Workflows'],
     deliverables: ['Internal storyboards & animation studies'],
     results: [{ metric: 'R&D Pipeline', context: 'Pre-production storyboarding blueprint' }],
-    image: null,
-    imageAlt: 'What If Animation Studio storyboarding and character direction plate',
+    image: whatTheByteImg,
+    imageAlt: 'Geometric storyboard blocks and creative layout for What If Animation Studio',
     visualCode: '',
     externalLinks: [],
   },
@@ -1337,8 +1380,8 @@ export const PROJECTS: ProjectCaseStudy[] = [
     tools: ['Shopify', 'Canva', 'Google Docs'],
     deliverables: ['Live Shopify storefront (elecostudio.shop)', 'Structured product listings'],
     results: [{ metric: 'Live Storefront', context: 'Active Shopify store at elecostudio.shop' }],
-    image: null,
-    imageAlt: 'EleCoStudio Shopify storefront showcase plate',
+    image: ecommerceStorefrontImg,
+    imageAlt: 'Minimalist product packaging flat-lay on travertine stone representing EleCoStudio storefront',
     visualCode: '',
     externalLinks: [
       {
