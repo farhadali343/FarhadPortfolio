@@ -23,7 +23,7 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
       : publicProjects.filter((project) => project.curatedTabs.includes(selectedTab));
 
   return (
-    <section id="projects" className="py-24 lg:py-32 border-b border-slate-200/80 bg-[#F8FAFC]">
+    <section id="projects" className="py-16 sm:py-24 lg:py-32 border-b border-slate-200/80 bg-[#F8FAFC]">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         {/* Curated Agency Showcase Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
@@ -45,7 +45,7 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
         <div
           role="tablist"
           aria-label="Filter portfolio work by category"
-          className="inline-flex flex-wrap items-center gap-1.5 p-1.5 bg-white border border-slate-200/90 studio-card-shadow rounded-full mb-12"
+          className="inline-flex flex-wrap items-center gap-1.5 p-1.5 bg-white border border-slate-200/90 studio-card-shadow rounded-2xl sm:rounded-full mb-10 sm:mb-12 max-w-full"
         >
           {CURATED_PROJECT_TABS.map((tab) => {
             const active = selectedTab === tab;
@@ -56,7 +56,7 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
                 role="tab"
                 aria-selected={active}
                 onClick={() => setSelectedTab(tab)}
-                className={`px-4 py-2 text-xs font-medium rounded-full transition-colors duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] ${
+                className={`px-3.5 sm:px-4 py-2 text-xs font-medium rounded-xl sm:rounded-full transition-colors duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] ${
                   active
                     ? 'bg-[#0F172A] text-white shadow-xs'
                     : 'text-[#475569] hover:text-[#0F172A] hover:bg-slate-100'

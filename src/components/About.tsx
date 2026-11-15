@@ -36,7 +36,7 @@ const HORIZONTAL_WORKFLOW = [
 
 export default function About() {
   return (
-    <section id="about" className="py-24 lg:py-32 border-b border-slate-200/80 bg-white">
+    <section id="about" className="py-16 sm:py-24 lg:py-32 border-b border-slate-200/80 bg-white">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         {/* 1. About & Creative Philosophy */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">

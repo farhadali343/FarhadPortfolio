@@ -44,7 +44,7 @@ export function HomePhilosophySection({ onNavigate }: { onNavigate: NavigateFn }
   ];
 
   return (
-    <section className="py-24 lg:py-28 bg-white border-b border-slate-200/80">
+    <section className="py-16 sm:py-24 lg:py-28 bg-white border-b border-slate-200/80">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-5">
@@ -132,7 +132,7 @@ export function HomeWorkflowSection() {
   ];
 
   return (
-    <section className="py-24 lg:py-28 bg-[#F8FAFC] border-b border-slate-200/80">
+    <section className="py-16 sm:py-24 lg:py-28 bg-[#F8FAFC] border-b border-slate-200/80">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
           <div>
@@ -233,7 +233,7 @@ export function HomeChannelSpotlightSection() {
   ];
 
   return (
-    <section className="py-24 lg:py-28 bg-white border-b border-slate-200/80">
+    <section className="py-16 sm:py-24 lg:py-28 bg-white border-b border-slate-200/80">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
           <div>
@@ -329,7 +329,7 @@ export function HomeCommerceSection() {
   ];
 
   return (
-    <section className="py-24 lg:py-28 bg-[#F8FAFC] border-b border-slate-200/80">
+    <section className="py-16 sm:py-24 lg:py-28 bg-[#F8FAFC] border-b border-slate-200/80">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
           <div>
@@ -417,7 +417,7 @@ export function HomeEditorialSection() {
   ];
 
   return (
-    <section className="py-24 lg:py-28 bg-white border-b border-slate-200/80">
+    <section className="py-16 sm:py-24 lg:py-28 bg-white border-b border-slate-200/80">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-5">
@@ -486,7 +486,7 @@ export function HomeResumeCtaSection({
   isGeneratingPdf: boolean;
 }) {
   return (
-    <section className="py-24 lg:py-28 bg-white border-b border-slate-200/80">
+    <section className="py-16 sm:py-24 lg:py-28 bg-white border-b border-slate-200/80">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         <div className="rounded-3xl bg-[#F8FAFC] border border-slate-200/90 studio-card-shadow p-8 sm:p-12 lg:p-14 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7">
@@ -593,7 +593,7 @@ export function HomeFaqSection() {
   const [openIndex, setOpenIndex] = useState<number>(0);
 
   return (
-    <section className="py-24 lg:py-28 bg-[#F8FAFC] border-b border-slate-200/80">
+    <section className="py-16 sm:py-24 lg:py-28 bg-[#F8FAFC] border-b border-slate-200/80">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-4">
@@ -663,7 +663,7 @@ export function HomeLaunchCtaSection({ onNavigate }: { onNavigate: NavigateFn })
   };
 
   return (
-    <section className="py-24 lg:py-28 bg-white border-b border-slate-200/80">
+    <section className="py-16 sm:py-24 lg:py-28 bg-white border-b border-slate-200/80">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-3xl bg-[#0F172A] text-white p-8 sm:p-14 lg:p-16 shadow-[0_32px_64px_-20px_rgba(15,23,42,0.38)]">
           <div

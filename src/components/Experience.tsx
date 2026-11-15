@@ -80,7 +80,7 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="py-24 lg:py-32 bg-[#F1F5F9]/60 text-[#0F172A] border-b border-slate-200/80"
+      className="py-16 sm:py-24 lg:py-32 bg-[#F1F5F9]/60 text-[#0F172A] border-b border-slate-200/80"
     >
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">

@@ -131,7 +131,7 @@ export default function Navbar({ currentRoute, onNavigate }: NavbarProps) {
 
   return (
     <header className="no-print sticky top-3.5 z-40 w-full px-3 sm:px-6 pointer-events-none">
-      <div className="pointer-events-auto mx-auto max-w-5xl rounded-full bg-white/80 backdrop-blur-md border border-slate-200/90 shadow-[0_16px_38px_-14px_rgba(15,23,42,0.12)] px-4 sm:px-5 h-14 flex items-center justify-between gap-6">
+      <div className="pointer-events-auto mx-auto max-w-5xl rounded-full bg-white/80 backdrop-blur-md border border-slate-200/90 shadow-[0_16px_38px_-14px_rgba(15,23,42,0.12)] px-3.5 sm:px-5 h-14 flex items-center justify-between gap-2 sm:gap-6">
         {/* Wordmark -> Home */}
         <a
           href="/"
@@ -142,7 +142,7 @@ export default function Navbar({ currentRoute, onNavigate }: NavbarProps) {
             onNavigate('home');
           }}
           aria-current={currentRoute === 'home' && activeHomeSection === 'home' ? 'page' : undefined}
-          className="font-display text-sm sm:text-[15px] font-semibold tracking-tight text-[#0F172A] whitespace-nowrap shrink-0 pl-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded-full"
+          className="font-display text-xs sm:text-[15px] font-semibold tracking-tight text-[#0F172A] whitespace-nowrap shrink-0 pl-1 sm:pl-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded-full"
         >
           {PROFILE.wordmark}
         </a>
@@ -182,7 +182,7 @@ export default function Navbar({ currentRoute, onNavigate }: NavbarProps) {
         </LayoutGroup>
 
         {/* High-Contrast Pill CTA -> Contact Page */}
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           <a
             href="/contact"
             onClick={(e) => {
@@ -191,7 +191,7 @@ export default function Navbar({ currentRoute, onNavigate }: NavbarProps) {
               onNavigate('contact');
             }}
             aria-current={isContactActive ? 'page' : undefined}
-            className={`inline-flex items-center justify-center px-4 py-2 text-xs sm:text-[13px] font-semibold text-white rounded-full transition-all duration-150 whitespace-nowrap shrink-0 shadow-[0_8px_20px_-6px_rgba(15,23,42,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2 ${
+            className={`inline-flex items-center justify-center px-3 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-[13px] font-semibold text-white rounded-full transition-all duration-150 whitespace-nowrap shrink-0 shadow-[0_8px_20px_-6px_rgba(15,23,42,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2 ${
               isContactActive ? 'bg-[#2563EB]' : 'bg-[#0F172A] hover:bg-[#2563EB]'
             }`}
           >
@@ -204,7 +204,7 @@ export default function Navbar({ currentRoute, onNavigate }: NavbarProps) {
             aria-expanded={mobileOpen}
             aria-controls="mobile-navigation-drawer"
             aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            className="md:hidden inline-flex items-center justify-center w-10 h-10 text-[#0F172A] border border-slate-200 bg-white/90 rounded-full hover:border-[#0F172A] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]"
+            className="md:hidden inline-flex items-center justify-center w-9 h-9 text-[#0F172A] border border-slate-200 bg-white/90 rounded-full hover:border-[#0F172A] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]"
           >
             {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>

@@ -88,7 +88,7 @@
 .animate-marquee-fast {
   display: flex;
   width: max-content;
-  animation: marqueeRtl 14s linear infinite;
+  animation: marqueeLtr 16s linear infinite;
   will-change: transform;
 }
 

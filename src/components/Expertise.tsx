@@ -129,7 +129,7 @@ const PRODUCTION_STACK: StackColumn[] = [
 
 export default function Expertise() {
   return (
-    <section id="expertise" className="py-24 lg:py-32 border-b border-slate-200/80 bg-[#F8FAFC]">
+    <section id="expertise" className="py-16 sm:py-24 lg:py-32 border-b border-slate-200/80 bg-[#F8FAFC]">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         {/* Executive Capabilities Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">

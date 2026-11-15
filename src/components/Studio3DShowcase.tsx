@@ -668,8 +668,8 @@ export default function Studio3DShowcase() {
       className="no-print border-b border-slate-200/80 bg-[#F8FAFC]"
     >
       {/* Editorial Section Header Above the Viewport */}
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-24 lg:pt-28 pb-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24 lg:pt-28 pb-6 sm:pb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6">
           <div>
             <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-[#0F172A]">
               Inside My Production Engine.
@@ -687,7 +687,7 @@ export default function Studio3DShowcase() {
         className={
           isFullscreen
             ? 'fixed inset-0 z-50 w-screen h-screen bg-[#EDF2F7]'
-            : 'mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pb-24 lg:pb-32'
+            : 'mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24 lg:pb-32'
         }
       >
         <div
@@ -696,7 +696,7 @@ export default function Studio3DShowcase() {
           } ${
             isFullscreen
               ? 'h-full'
-              : 'h-[580px] sm:h-[650px] rounded-2xl border border-slate-200/90 studio-card-shadow'
+              : 'h-[480px] sm:h-[620px] rounded-2xl border border-slate-200/90 studio-card-shadow'
           }`}
         >
           {/* Isolated WebGL Canvas Mount */}
@@ -720,7 +720,7 @@ export default function Studio3DShowcase() {
                   type="button"
                   onClick={() => handleHotspotClick(spec.id)}
                   style={{ opacity: 0, left: 0, top: 0 }}
-                  className={`absolute flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors shadow-[0_8px_20px_-6px_rgba(15,23,42,0.28)] border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] ${
+                  className={`absolute flex items-center gap-1 sm:gap-1.5 rounded-full px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-[11px] font-medium transition-colors shadow-[0_8px_20px_-6px_rgba(15,23,42,0.28)] border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] ${
                     isSelected
                       ? 'bg-[#2563EB] text-white border-[#2563EB]'
                       : isDay
@@ -784,7 +784,7 @@ export default function Studio3DShowcase() {
             <aside
               role="region"
               aria-label={`${activeInfo.title} details`}
-              className={`pointer-events-auto absolute top-16 right-4 w-[calc(100%-2rem)] sm:w-80 rounded-2xl border p-5 shadow-[0_22px_44px_-14px_rgba(15,23,42,0.22)] ${
+              className={`pointer-events-auto absolute top-14 sm:top-16 left-3 right-3 sm:left-auto sm:right-4 sm:w-80 max-h-[54%] sm:max-h-[76%] overflow-y-auto rounded-2xl border p-4 sm:p-5 shadow-[0_22px_44px_-14px_rgba(15,23,42,0.22)] ${
                 isDay
                   ? 'bg-white/95 border-slate-200 text-[#0F172A]'
                   : 'bg-[#15191F]/95 border-[#2D3644] text-white'
@@ -889,7 +889,7 @@ export default function Studio3DShowcase() {
               </button>
             ) : (
               <div
-                className={`pointer-events-auto w-full max-w-[980px] rounded-2xl border px-4 py-3 text-xs shadow-[0_18px_38px_-14px_rgba(15,23,42,0.22)] ${
+                className={`pointer-events-auto w-full max-w-[980px] rounded-2xl border px-3 py-2.5 sm:px-4 sm:py-3 text-xs shadow-[0_18px_38px_-14px_rgba(15,23,42,0.22)] ${
                   isDay
                     ? 'bg-white/95 border-slate-200/95 text-[#0F172A]'
                     : 'bg-[#15191F]/95 border-[#2D3644] text-[#E2E8F0]'

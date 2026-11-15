@@ -62,9 +62,9 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-16 pb-20 lg:pt-24 lg:pb-24">
+      <div className="relative mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-12 pb-14 sm:pt-16 sm:pb-20 lg:pt-24 lg:pb-24">
         {/* Executive Split 3D Stage */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           {/* Left Column: Catchy Editorial Copy & Primary/Secondary Pill CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
@@ -74,7 +74,7 @@ export default function Hero() {
           >
             <div>
               {/* Top Subtle Status Line */}
-              <div className="flex items-center gap-2.5 text-xs sm:text-sm font-medium text-[#475569] mb-6">
+              <div className="flex items-center gap-2.5 text-xs sm:text-sm font-medium text-[#475569] mb-5 sm:mb-6">
                 <span className="relative flex h-2.5 w-2.5 shrink-0" aria-hidden="true">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
@@ -82,21 +82,21 @@ export default function Hero() {
                 <span>Available for Select Global Projects • PK / Remote</span>
               </div>
 
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-[54px] font-semibold tracking-tight text-[#0F172A] leading-[1.06] text-balance mb-6">
+              <h1 className="font-display text-[32px] sm:text-5xl lg:text-[54px] font-semibold tracking-tight text-[#0F172A] leading-[1.08] sm:leading-[1.06] text-balance mb-5 sm:mb-6">
                 {PROFILE.heroHeadline}
               </h1>
 
-              <p className="text-base sm:text-lg text-[#475569] leading-relaxed max-w-[56ch]">
+              <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-[56ch]">
                 {PROFILE.heroSupportingText}
               </p>
             </div>
 
             {/* Executive Pill CTAs */}
-            <div className="mt-10 flex flex-wrap items-center gap-4">
+            <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4">
               <button
                 type="button"
                 onClick={scrollToProjects}
-                className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-[#0F172A] hover:bg-[#2563EB] rounded-full shadow-[0_16px_32px_-12px_rgba(15,23,42,0.45)] hover:-translate-y-0.5 transition-all duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-[#0F172A] hover:bg-[#2563EB] rounded-full shadow-[0_16px_32px_-12px_rgba(15,23,42,0.45)] hover:-translate-y-0.5 transition-all duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2"
               >
                 Explore Selected Work
                 <ArrowDownRight className="w-4 h-4" />
@@ -105,7 +105,7 @@ export default function Hero() {
               <button
                 type="button"
                 onClick={scrollToStudio3D}
-                className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold text-[#0F172A] bg-white/80 backdrop-blur-md border border-slate-200/90 hover:border-[#2563EB]/45 rounded-full shadow-[0_12px_28px_-14px_rgba(15,23,42,0.16)] hover:-translate-y-0.5 transition-all duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-[#0F172A] bg-white/80 backdrop-blur-md border border-slate-200/90 hover:border-[#2563EB]/45 rounded-full shadow-[0_12px_28px_-14px_rgba(15,23,42,0.16)] hover:-translate-y-0.5 transition-all duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2"
               >
                 <Box className="w-4 h-4 text-[#2563EB]" />
                 Interactive 3D Studio
@@ -189,21 +189,25 @@ export default function Hero() {
         </div>
 
         {/* Clean 4-Column Architectural Impact Metrics Bar */}
-        <div className="mt-20 pt-14 border-t border-slate-200/80">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="mt-14 sm:mt-20 pt-10 sm:pt-14 border-t border-slate-200/80">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5">
             {HERO_IMPACT_METRICS.map((item) => (
               <TiltCard3D
                 key={item.id}
                 maxTilt={4.5}
                 liftZ={8}
-                className="rounded-2xl bg-white border border-slate-200/90 studio-card-shadow p-7 sm:p-8 flex flex-col justify-between"
+                className="rounded-2xl bg-white border border-slate-200/90 studio-card-shadow p-5 sm:p-7 lg:p-8 flex flex-col justify-between"
               >
-                <div className="text-4xl sm:text-[42px] font-semibold text-[#0F172A] tracking-tight leading-none">
+                <div className="text-3xl sm:text-[42px] font-semibold text-[#0F172A] tracking-tight leading-none">
                   <AnimatedCounter value={item.value} />
                 </div>
-                <div className="mt-4">
-                  <div className="text-sm font-semibold text-[#0F172A]">{item.title}</div>
-                  <div className="mt-1 text-xs font-medium text-[#475569]">{item.context}</div>
+                <div className="mt-3 sm:mt-4">
+                  <div className="text-xs sm:text-sm font-semibold text-[#0F172A] leading-snug">
+                    {item.title}
+                  </div>
+                  <div className="mt-1 text-[11px] sm:text-xs font-medium text-[#475569]">
+                    {item.context}
+                  </div>
                 </div>
               </TiltCard3D>
             ))}

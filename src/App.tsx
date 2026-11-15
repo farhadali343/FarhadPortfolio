@@ -83,7 +83,7 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-[#0F172A]">
+      <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-[#0F172A] overflow-x-clip">
         <Navbar currentRoute={currentRoute} onNavigate={navigate} />
         <main className="flex-1">
           {currentRoute === 'home' && (
