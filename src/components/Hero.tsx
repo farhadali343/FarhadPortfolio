@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowDownRight, Download, Camera } from 'lucide-react';
+import { ArrowDownRight, Download, Camera, Box } from 'lucide-react';
 import { motion } from 'motion/react';
 import { PROFILE, getPublicMetrics } from '../data/portfolioData';
 
@@ -14,6 +14,11 @@ export default function Hero({ onDownloadResume, isGeneratingPdf }: HeroProps) {
 
   const scrollToProjects = () => {
     const el = document.getElementById('projects');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const scrollToStudio3D = () => {
+    const el = document.getElementById('studio-3d');
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
@@ -81,6 +86,15 @@ export default function Hero({ onDownloadResume, isGeneratingPdf }: HeroProps) {
               >
                 <Download className="w-4 h-4 text-[#68717D]" />
                 {isGeneratingPdf ? 'Preparing PDF...' : 'Download Resume'}
+              </button>
+
+              <button
+                type="button"
+                onClick={scrollToStudio3D}
+                className="inline-flex items-center gap-2 px-4 py-3 text-sm font-medium text-[#2563EB] hover:text-[#1D4ED8] rounded-md transition-colors duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]"
+              >
+                <Box className="w-4 h-4" />
+                View 3D Studio
               </button>
             </div>
           </motion.div>

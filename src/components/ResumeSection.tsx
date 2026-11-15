@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Download, Printer } from 'lucide-react';
+import { Download, ExternalLink, Printer } from 'lucide-react';
 import {
   CONTACT_CONFIG,
   EXPERTISE_CATEGORIES,
@@ -22,7 +22,7 @@ export default function ResumeSection({
   isGeneratingPdf,
   pdfError,
 }: ResumeSectionProps) {
-  const [viewMode, setViewMode] = useState<'web' | 'a4'>('a4');
+  const [viewMode, setViewMode] = useState<'a4' | 'compact'>('a4');
 
   const experiences = getPublicExperience();
   const projects = getPublicProjects().slice(0, 8);
@@ -33,51 +33,57 @@ export default function ResumeSection({
     window.print();
   };
 
+  const featuredChannels = CONTACT_CONFIG.channelLinks.filter(
+    (item) => item.href && !item.isPlaceholder
+  );
+  const featuredBusiness = CONTACT_CONFIG.socialLinks.filter(
+    (item) => item.href && !item.isPlaceholder
+  );
+
   return (
-    <section id="resume" className="py-16 lg:py-24 border-b border-[#E5E7EB] bg-white">
+    <section id="resume" className="py-16 lg:py-24 border-b border-[#E5E7EB] bg-[#F8F9FB]">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-        {/* Controls Header (Hidden on Print) */}
+        {/* Section Controls (Hidden on Print) */}
         <div className="no-print flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-3">
               Resume / Curriculum Vitae
             </p>
             <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-[#15191F] text-balance">
-              Synchronized ATS-ready CV &amp; A4 PDF export.
+              Clean, ATS-ready CV &amp; A4 PDF export.
             </h2>
-            <p className="mt-2 text-sm text-[#68717D] max-w-[62ch]">
-              Generated directly from the same verified profile data powering this portfolio. Pending old-CV items remain omitted publicly until confirmed.
+            <p className="mt-2 text-sm text-[#68717D] max-w-[60ch]">
+              Synchronized directly with verified portfolio data. Pending old-CV items remain omitted publicly until confirmed.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            {/* Web / A4 View Toggle */}
             <div
               role="group"
-              aria-label="Resume display layout"
-              className="inline-flex items-center gap-1 p-1 bg-[#F8F9FB] border border-[#E5E7EB] rounded-lg"
+              aria-label="Resume layout mode"
+              className="inline-flex items-center gap-1 p-1 bg-white border border-[#E5E7EB] rounded-lg"
             >
               <button
                 type="button"
                 onClick={() => setViewMode('a4')}
                 className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors whitespace-nowrap shrink-0 ${
                   viewMode === 'a4'
-                    ? 'bg-white text-[#15191F] shadow-xs border border-[#E5E7EB]'
+                    ? 'bg-[#15191F] text-white'
                     : 'text-[#68717D] hover:text-[#15191F]'
                 }`}
               >
-                A4 Sheet View
+                Full A4 CV
               </button>
               <button
                 type="button"
-                onClick={() => setViewMode('web')}
+                onClick={() => setViewMode('compact')}
                 className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors whitespace-nowrap shrink-0 ${
-                  viewMode === 'web'
-                    ? 'bg-white text-[#15191F] shadow-xs border border-[#E5E7EB]'
+                  viewMode === 'compact'
+                    ? 'bg-[#15191F] text-white'
                     : 'text-[#68717D] hover:text-[#15191F]'
                 }`}
               >
-                Compact Summary
+                Executive Summary
               </button>
             </div>
 
@@ -87,7 +93,7 @@ export default function ResumeSection({
               className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-[#15191F] bg-white border border-[#E5E7EB] hover:border-[#15191F] rounded-md transition-colors whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]"
             >
               <Printer className="w-4 h-4 text-[#68717D]" />
-              Print Resume
+              Print
             </button>
 
             <button
@@ -111,185 +117,289 @@ export default function ResumeSection({
           </div>
         )}
 
-        {/* Printable A4 / Web Resume Sheet */}
-        <div
-          className={`print-only-resume mx-auto bg-white border border-[#E5E7EB] rounded-lg ${
-            viewMode === 'a4' ? 'max-w-[820px] p-6 sm:p-10 lg:p-12' : 'w-full p-6 sm:p-8'
+        {/* Clean A4 Resume Document Sheet */}
+        <article
+          aria-label="Farhad Ali Curriculum Vitae"
+          className={`print-only-resume mx-auto bg-white border border-[#E5E7EB] rounded-lg shadow-xs ${
+            viewMode === 'a4'
+              ? 'max-w-[860px] p-6 sm:p-10 lg:p-12'
+              : 'max-w-[1000px] p-6 sm:p-10'
           }`}
         >
-          {/* Resume Header */}
-          <div className="pb-6 border-b border-[#E5E7EB]">
-            <h3 className="font-display text-2xl sm:text-3xl font-bold text-[#15191F]">
-              {PROFILE.name}
-            </h3>
-            <p className="mt-1 text-sm sm:text-base font-semibold text-[#2563EB]">
-              {PROFILE.primaryPositioning}
-            </p>
-            <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[#68717D]">
-              <span>{PROFILE.locationLine}</span>
-              <span aria-hidden="true">|</span>
-              <a
-                href={`mailto:${CONTACT_CONFIG.email}`}
-                className="text-[#15191F] hover:text-[#2563EB] underline underline-offset-2"
-              >
-                {CONTACT_CONFIG.email}
-                {CONTACT_CONFIG.emailIsPlaceholder ? ' (Editable Placeholder)' : ''}
-              </a>
-              <span aria-hidden="true">|</span>
-              <span>{PROFILE.availability.label}</span>
-              <span aria-hidden="true">|</span>
-              <span>Languages: {PROFILE.languages.map((l) => l.name).join(', ')}</span>
-            </div>
-            <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[#68717D]">
-              <span className="font-medium text-[#15191F]">Channels &amp; Profiles:</span>
-              {[...CONTACT_CONFIG.socialLinks, ...CONTACT_CONFIG.channelLinks]
-                .filter((item) => item.href && !item.isPlaceholder)
-                .map((item, idx) => (
-                  <span key={item.id} className="inline-flex items-center gap-2">
-                    {idx > 0 && <span aria-hidden="true">·</span>}
-                    <a
-                      href={item.href!}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#2563EB] hover:underline"
-                    >
-                      {item.label} ({item.value})
-                    </a>
-                  </span>
-                ))}
-            </div>
-          </div>
+          {/* 1. Resume Header */}
+          <header className="pb-7 border-b border-[#E5E7EB]">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-5">
+              <div>
+                <h3 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-[#15191F]">
+                  {PROFILE.name}
+                </h3>
+                <p className="mt-1 text-sm sm:text-base font-semibold text-[#2563EB]">
+                  {PROFILE.primaryPositioning}
+                </p>
+                <p className="mt-2 text-xs text-[#68717D]">
+                  {PROFILE.locationLine}
+                </p>
+              </div>
 
-          {/* Professional Summary */}
-          <div className="py-5 border-b border-[#E5E7EB] print-avoid-break">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-2.5">
+              <div className="md:text-right space-y-1.5 text-xs">
+                <div>
+                  <a
+                    href={`mailto:${CONTACT_CONFIG.email}`}
+                    className="font-medium text-[#15191F] hover:text-[#2563EB] underline underline-offset-2"
+                  >
+                    {CONTACT_CONFIG.email}
+                  </a>
+                </div>
+                <div className="text-[#68717D]">
+                  {PROFILE.availability.label}
+                </div>
+                <div className="text-[#68717D]">
+                  Languages: {PROFILE.languages.map((l) => l.name).join(' · ')}
+                </div>
+              </div>
+            </div>
+
+            {/* Clean Structured Links Row */}
+            {(featuredBusiness.length > 0 || featuredChannels.length > 0) && (
+              <div className="mt-5 pt-4 border-t border-[#E5E7EB]/80 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div>
+                  <div className="font-semibold text-[#15191F] mb-1.5">
+                    Business Profiles
+                  </div>
+                  <div className="flex flex-wrap gap-x-3 gap-y-1 text-[#68717D]">
+                    {featuredBusiness.map((item) => (
+                      <a
+                        key={item.id}
+                        href={item.href!}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[#2563EB] hover:underline"
+                      >
+                        <span>{item.label}</span>
+                        <ExternalLink className="w-3 h-3 no-print" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="font-semibold text-[#15191F] mb-1.5">
+                    Channels &amp; Storefronts
+                  </div>
+                  <div className="flex flex-wrap gap-x-3 gap-y-1 text-[#68717D]">
+                    {featuredChannels.map((item) => (
+                      <a
+                        key={item.id}
+                        href={item.href!}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[#2563EB] hover:underline"
+                      >
+                        <span>{item.value}</span>
+                        <ExternalLink className="w-3 h-3 no-print" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </header>
+
+          {/* 2. Professional Summary */}
+          <section className="py-7 border-b border-[#E5E7EB] print-avoid-break">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-3">
               Professional Summary
             </h4>
-            <div className="space-y-2 text-sm text-[#15191F] leading-relaxed">
-              {PROFILE.aboutSummary.map((p, idx) => (
-                <p key={idx}>{p}</p>
+            <div className="space-y-2.5 text-sm text-[#15191F]/90 leading-relaxed max-w-[74ch]">
+              {PROFILE.aboutSummary.map((paragraph, idx) => (
+                <p key={idx}>{paragraph}</p>
               ))}
             </div>
-          </div>
+          </section>
 
-          {/* Core Skills */}
-          <div className="py-5 border-b border-[#E5E7EB]">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-3">
-              Core Skills &amp; Execution Attribution
+          {/* 3. Verified Highlights */}
+          <section className="py-7 border-b border-[#E5E7EB] print-avoid-break">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-4">
+              Verified Audit Highlights
             </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {EXPERTISE_CATEGORIES.map((cat) => (
-                <div key={cat.id} className="print-avoid-break">
-                  <div className="text-xs font-semibold text-[#15191F] mb-1">
-                    {cat.title}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-3.5">
+              {metrics.map((metric) => (
+                <div
+                  key={metric.id}
+                  className="flex items-baseline justify-between gap-3 py-1.5 border-b border-[#E5E7EB]/60"
+                >
+                  <div>
+                    <div className="text-xs font-medium text-[#15191F]">
+                      {metric.label}
+                    </div>
+                    <div className="text-[11px] text-[#68717D]">
+                      {metric.project} · {metric.auditDate}
+                    </div>
                   </div>
-                  <p className="text-xs text-[#68717D] leading-relaxed">
-                    {cat.skills.map((s) => `${s.name} (${s.attribution})`).join(' · ')}
-                  </p>
+                  <div className="font-mono-tabular text-sm font-semibold text-[#15191F] shrink-0">
+                    {metric.value}
+                  </div>
                 </div>
               ))}
             </div>
-          </div>
+          </section>
 
-          {/* Independent Projects & Experience */}
-          <div className="py-5 border-b border-[#E5E7EB]">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-4">
+          {/* 4. Independent Projects & Digital Ventures */}
+          <section className="py-7 border-b border-[#E5E7EB]">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-5">
               Independent Projects &amp; Digital Ventures
             </h4>
-            <div className="space-y-5">
+            <div className="space-y-6">
               {experiences.map((exp) => (
                 <div key={exp.id} className="print-avoid-break">
-                  <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <div className="text-sm font-semibold text-[#15191F]">
-                      {exp.role} — <span className="text-[#2563EB]">{exp.projectGroup}</span>
-                    </div>
-                    <div className="font-mono-tabular text-xs text-[#68717D]">
+                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4">
+                    <h5 className="text-sm sm:text-[15px] font-semibold text-[#15191F]">
+                      {exp.role}
+                    </h5>
+                    <span className="font-mono-tabular text-xs text-[#68717D] shrink-0">
                       {exp.timeframe}
-                    </div>
+                    </span>
                   </div>
-                  <div className="text-xs text-[#68717D] mt-0.5 mb-2">
-                    {exp.engagementType} · Platforms: {exp.platforms}
+
+                  <div className="mt-0.5 text-xs font-medium text-[#2563EB]">
+                    {exp.projectGroup}
+                    <span className="text-[#68717D] font-normal">
+                      {' '}· {exp.engagementType} · {exp.platforms}
+                    </span>
                   </div>
-                  <ul className="space-y-1 text-xs sm:text-[13px] text-[#15191F]/90 leading-relaxed">
-                    {exp.responsibilities.map((r) => (
-                      <li key={r} className="flex items-start gap-2">
-                        <span className="text-[#68717D]">•</span>
-                        <span>{r}</span>
+
+                  <ul className="mt-2.5 space-y-1.5 text-xs sm:text-[13px] text-[#15191F]/85 leading-relaxed">
+                    {exp.responsibilities.map((item) => (
+                      <li key={item} className="grid grid-cols-[12px_1fr] gap-2">
+                        <span className="text-[#68717D]" aria-hidden="true">
+                          •
+                        </span>
+                        <span>{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               ))}
             </div>
-          </div>
+          </section>
 
-          {/* Verified Audit Highlights & Key Projects */}
-          <div className="py-5 border-b border-[#E5E7EB] print-avoid-break">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-3">
-              Verified Project Snapshots &amp; Highlights
-            </h4>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-[#15191F] mb-4">
-              {metrics.map((m) => (
-                <li key={m.id} className="font-mono-tabular">
-                  <span className="font-semibold">{m.value}</span> {m.label} —{' '}
-                  <span className="text-[#68717D]">
-                    {m.project} ({m.auditDate})
-                  </span>
-                </li>
+          {/* 5. Core Skills */}
+          <section className="py-7 border-b border-[#E5E7EB]">
+            <div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB]">
+                Core Expertise
+              </h4>
+              <span className="text-[11px] text-[#68717D]">
+                Includes hands-on execution, AI-assisted direction &amp; active R&amp;D
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
+              {EXPERTISE_CATEGORIES.map((cat) => (
+                <div key={cat.id} className="print-avoid-break">
+                  <h5 className="text-xs font-semibold text-[#15191F] mb-1.5">
+                    {cat.title}
+                  </h5>
+                  <ul className="space-y-1 text-xs text-[#68717D] leading-relaxed">
+                    {cat.skills.map((skill) => (
+                      <li
+                        key={skill.name}
+                        className="flex items-baseline justify-between gap-3"
+                      >
+                        <span className="text-[#15191F]/85">{skill.name}</span>
+                        <span className="text-[11px] text-[#68717D] shrink-0">
+                          {skill.attribution}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
-            </ul>
-            {viewMode === 'a4' && (
-              <div className="pt-3 border-t border-[#E5E7EB]/70 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            </div>
+          </section>
+
+          {/* 6. Selected Initiatives (Shown in Full A4 View) */}
+          {viewMode === 'a4' && (
+            <section className="py-7 border-b border-[#E5E7EB]">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-4">
+                Selected Portfolio Initiatives
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4">
                 {projects.map((proj) => (
-                  <div key={proj.id} className="text-xs">
-                    <span className="font-semibold text-[#15191F]">{proj.title}</span>{' '}
-                    <span className="text-[#68717D]">({proj.primaryCategory}) — {proj.summary}</span>
+                  <div key={proj.id} className="print-avoid-break">
+                    <div className="flex items-baseline justify-between gap-2">
+                      <span className="text-xs font-semibold text-[#15191F]">
+                        {proj.title}
+                      </span>
+                      <span className="text-[11px] text-[#68717D] shrink-0">
+                        {proj.primaryCategory}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-xs text-[#68717D] leading-relaxed">
+                      {proj.summary}
+                    </p>
                   </div>
                 ))}
               </div>
-            )}
-          </div>
+            </section>
+          )}
 
-          {/* Tools & Education */}
-          <div className="pt-5 grid grid-cols-1 md:grid-cols-2 gap-6 print-avoid-break">
-            <div>
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-2.5">
-                Tools &amp; Technologies
+          {/* 7. Tools, Technologies & Languages */}
+          <section className="pt-7 grid grid-cols-1 md:grid-cols-12 gap-8 print-avoid-break">
+            <div className="md:col-span-8">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-3.5">
+                Tools &amp; Platforms
               </h4>
-              <div className="space-y-1.5 text-xs text-[#68717D]">
+              <div className="space-y-2 text-xs">
                 {TOOL_ECOSYSTEM.map((group) => (
-                  <div key={group.id}>
-                    <span className="font-semibold text-[#15191F]">{group.category}: </span>
-                    {group.tools.map((t) => t.name).join(', ')}
+                  <div
+                    key={group.id}
+                    className="grid grid-cols-1 sm:grid-cols-[165px_1fr] gap-1 sm:gap-4"
+                  >
+                    <span className="font-semibold text-[#15191F]">{group.category}</span>
+                    <span className="text-[#68717D] leading-relaxed">
+                      {group.tools.map((t) => t.name).join(' · ')}
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div>
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-2.5">
-                Education &amp; Languages
-              </h4>
-              <p className="text-xs text-[#15191F] mb-2">
-                <span className="font-semibold">Languages: </span>
-                {PROFILE.languages.map((l) => `${l.name} (${l.proficiency})`).join(' · ')}
-              </p>
-              {education.length > 0 ? (
-                <ul className="space-y-1 text-xs text-[#68717D]">
-                  {education.map((edu) => (
-                    <li key={edu.credential}>
-                      {edu.credential} — {edu.institution} ({edu.year})
+            <div className="md:col-span-4 space-y-4">
+              <div>
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-3.5">
+                  Languages
+                </h4>
+                <ul className="space-y-1.5 text-xs">
+                  {PROFILE.languages.map((lang) => (
+                    <li key={lang.name}>
+                      <span className="font-semibold text-[#15191F]">{lang.name}</span>
+                      <div className="text-[11px] text-[#68717D]">{lang.proficiency}</div>
                     </li>
                   ))}
                 </ul>
-              ) : (
-                <p className="text-xs text-[#68717D]">
-                  Education entries are preserved in the central profile config and omitted publicly until formal verification is finalized.
-                </p>
+              </div>
+
+              {education.length > 0 && (
+                <div className="pt-3 border-t border-[#E5E7EB]">
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-2">
+                    Education
+                  </h4>
+                  <ul className="space-y-1.5 text-xs text-[#68717D]">
+                    {education.map((edu) => (
+                      <li key={edu.credential}>
+                        <div className="font-semibold text-[#15191F]">{edu.credential}</div>
+                        <div className="text-[11px]">
+                          {edu.institution} ({edu.year})
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               )}
             </div>
-          </div>
-        </div>
+          </section>
+        </article>
       </div>
     </section>
   );

@@ -1,51 +1,111 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { PROFILE } from '../data/portfolioData';
 
-const DESKTOP_NAV_LINKS = [
+const SECTION_IDS = [
+  'home',
+  'about',
+  'expertise',
+  'experience',
+  'studio-3d',
+  'projects',
+  'resume',
+  'contact',
+] as const;
+
+type SectionId = (typeof SECTION_IDS)[number];
+
+const DESKTOP_NAV_LINKS: { id: SectionId; label: string }[] = [
   { id: 'about', label: 'About' },
   { id: 'expertise', label: 'Expertise' },
   { id: 'experience', label: 'Experience' },
+  { id: 'studio-3d', label: '3D Studio' },
   { id: 'projects', label: 'Projects' },
   { id: 'resume', label: 'Resume' },
 ];
 
-const MOBILE_NAV_LINKS = [
+const MOBILE_NAV_LINKS: { id: SectionId; label: string }[] = [
   { id: 'home', label: 'Home' },
   ...DESKTOP_NAV_LINKS,
   { id: 'contact', label: 'Contact' },
 ];
 
 export default function Navbar() {
-  const [activeSection, setActiveSection] = useState<string>('home');
+  const [activeSection, setActiveSection] = useState<SectionId>('home');
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  useEffect(() => {
-    const sectionIds = ['home', 'about', 'expertise', 'experience', 'projects', 'resume', 'contact'];
-    const elements = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
+  const manualTargetRef = useRef<{ id: SectionId; expiresAt: number } | null>(null);
 
-    if (elements.length === 0) return;
+  const computeScrollSpy = useCallback(() => {
+    const docEl = document.documentElement;
+    const scrollY = window.scrollY;
+    const viewportHeight = window.innerHeight;
+    const maxScroll = Math.max(docEl.scrollHeight - viewportHeight, 1);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible.length > 0) {
-          setActiveSection(visible[0].target.id);
-        }
-      },
-      {
-        rootMargin: '-25% 0px -55% 0px',
-        threshold: [0.1, 0.25, 0.5],
+    setScrollProgress(Math.min(Math.max(scrollY / maxScroll, 0), 1));
+
+    const pendingTarget = manualTargetRef.current;
+    if (pendingTarget) {
+      const targetEl = document.getElementById(pendingTarget.id);
+      const reachedTarget =
+        targetEl && Math.abs(targetEl.getBoundingClientRect().top - 72) < 48;
+      if (reachedTarget || Date.now() >= pendingTarget.expiresAt) {
+        manualTargetRef.current = null;
+      } else {
+        setActiveSection(pendingTarget.id);
+        return;
       }
-    );
+    }
 
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+    if (scrollY < 48) {
+      setActiveSection('home');
+      return;
+    }
+
+    if (viewportHeight + scrollY >= docEl.scrollHeight - 24) {
+      setActiveSection('contact');
+      return;
+    }
+
+    const spyLine = Math.min(Math.max(viewportHeight * 0.28, 110), 180);
+    let current: SectionId = 'home';
+
+    for (const id of SECTION_IDS) {
+      const el = document.getElementById(id);
+      if (!el) continue;
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= spyLine) {
+        current = id;
+      }
+    }
+
+    setActiveSection(current);
   }, []);
+
+  useEffect(() => {
+    let rafId = 0;
+    let ticking = false;
+
+    const scheduleSpyUpdate = () => {
+      if (ticking) return;
+      ticking = true;
+      rafId = window.requestAnimationFrame(() => {
+        ticking = false;
+        computeScrollSpy();
+      });
+    };
+
+    computeScrollSpy();
+    window.addEventListener('scroll', scheduleSpyUpdate, { passive: true });
+    window.addEventListener('resize', scheduleSpyUpdate, { passive: true });
+
+    return () => {
+      window.cancelAnimationFrame(rafId);
+      window.removeEventListener('scroll', scheduleSpyUpdate);
+      window.removeEventListener('resize', scheduleSpyUpdate);
+    };
+  }, [computeScrollSpy]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -57,17 +117,22 @@ export default function Navbar() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [mobileOpen]);
 
-  const scrollToSection = (id: string) => {
+  const scrollToSection = (id: SectionId) => {
     setMobileOpen(false);
+    manualTargetRef.current = { id, expiresAt: Date.now() + 850 };
+    setActiveSection(id);
+
     const target = document.getElementById(id);
     if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
+  const isContactActive = activeSection === 'contact';
+
   return (
     <header className="no-print sticky top-0 z-40 w-full bg-[#F8F9FB]/95 backdrop-blur-sm border-b border-[#E5E7EB]">
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-8">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-6">
         {/* Zone 1: Single-line Brand Wordmark */}
         <a
           href="#home"
@@ -75,13 +140,14 @@ export default function Navbar() {
             e.preventDefault();
             scrollToSection('home');
           }}
+          aria-current={activeSection === 'home' ? 'page' : undefined}
           className="font-display text-base sm:text-lg font-bold tracking-tight text-[#15191F] whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded-sm"
         >
           {PROFILE.wordmark}
         </a>
 
-        {/* Zone 2: 5 concise single-line nav links */}
-        <nav aria-label="Primary Navigation" className="hidden md:flex items-center gap-7">
+        {/* Zone 2: Scroll-Spy Section Links */}
+        <nav aria-label="Primary Navigation" className="hidden md:flex items-center gap-5 lg:gap-7">
           {DESKTOP_NAV_LINKS.map((item) => {
             const isActive = activeSection === item.id;
             return (
@@ -93,15 +159,15 @@ export default function Navbar() {
                   scrollToSection(item.id);
                 }}
                 aria-current={isActive ? 'page' : undefined}
-                className={`relative py-1 text-sm font-medium transition-colors duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded-sm ${
-                  isActive ? 'text-[#15191F]' : 'text-[#68717D] hover:text-[#15191F]'
+                className={`relative py-1.5 text-sm font-medium transition-colors duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded-sm ${
+                  isActive ? 'text-[#15191F] font-semibold' : 'text-[#68717D] hover:text-[#15191F]'
                 }`}
               >
                 {item.label}
                 <span
                   aria-hidden="true"
-                  className={`absolute left-0 right-0 -bottom-0.5 h-[2px] bg-[#2563EB] transition-opacity duration-150 ${
-                    isActive ? 'opacity-100' : 'opacity-0'
+                  className={`absolute left-0 right-0 bottom-0 h-[2px] bg-[#2563EB] origin-left transition-transform duration-200 ease-out ${
+                    isActive ? 'scale-x-100' : 'scale-x-0'
                   }`}
                 />
               </a>
@@ -109,7 +175,7 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Zone 3: 1 Primary CTA + Mobile Trigger */}
+        {/* Zone 3: Primary CTA + Mobile Trigger */}
         <div className="flex items-center gap-3 shrink-0">
           <a
             href="#contact"
@@ -117,7 +183,10 @@ export default function Navbar() {
               e.preventDefault();
               scrollToSection('contact');
             }}
-            className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-[#15191F] hover:bg-[#2563EB] rounded-md transition-colors duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2"
+            aria-current={isContactActive ? 'page' : undefined}
+            className={`inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-md transition-colors duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2 ${
+              isContactActive ? 'bg-[#2563EB]' : 'bg-[#15191F] hover:bg-[#2563EB]'
+            }`}
           >
             Let&apos;s Talk
           </a>
@@ -134,6 +203,13 @@ export default function Navbar() {
           </button>
         </div>
       </div>
+
+      {/* Subtle Scroll Progress Hairline */}
+      <div
+        aria-hidden="true"
+        className="h-[2px] w-full bg-[#2563EB] origin-left transition-transform duration-75 ease-out"
+        style={{ transform: `scaleX(${scrollProgress})` }}
+      />
 
       {/* Responsive Mobile Navigation Drawer */}
       {mobileOpen && (
@@ -152,13 +228,17 @@ export default function Navbar() {
                     e.preventDefault();
                     scrollToSection(item.id);
                   }}
-                  className={`px-3 py-2.5 text-sm font-medium rounded-md transition-colors whitespace-nowrap ${
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`flex items-center justify-between px-3 py-2.5 text-sm font-medium rounded-md transition-colors whitespace-nowrap ${
                     isActive
-                      ? 'text-[#2563EB] bg-[#F8F9FB]'
+                      ? 'text-[#2563EB] bg-[#F8F9FB] font-semibold'
                       : 'text-[#15191F] hover:bg-[#F8F9FB]'
                   }`}
                 >
-                  {item.label}
+                  <span>{item.label}</span>
+                  {isActive && (
+                    <span aria-hidden="true" className="w-4 h-[2px] bg-[#2563EB] rounded-full" />
+                  )}
                 </a>
               );
             })}
@@ -168,3 +248,4 @@ export default function Navbar() {
     </header>
   );
 }
+

@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Expertise from './components/Expertise';
 import Experience from './components/Experience';
+import Studio3DShowcase from './components/Studio3DShowcase';
 import Projects from './components/Projects';
 import CaseStudyModal from './components/CaseStudyModal';
 import ResumeSection from './components/ResumeSection';
@@ -41,6 +42,7 @@ export default function App() {
           <About />
           <Expertise />
           <Experience />
+          <Studio3DShowcase />
           <Projects onSelectProject={setActiveProject} />
           <ResumeSection
             onDownloadResume={handleDownloadResume}
