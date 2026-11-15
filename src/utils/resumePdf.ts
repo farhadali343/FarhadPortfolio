@@ -159,10 +159,10 @@ export function generateResumePdf(): void {
     y += 1.6;
   }
 
-  // 3. Verified Audit Highlights (Clean 2-Column Aligned Grid)
+  // 3. Selected Outcomes (Clean 2-Column Aligned Grid)
   const metrics = getPublicMetrics();
   if (metrics.length > 0) {
-    addSectionHeader('Verified Audit Highlights');
+    addSectionHeader('Selected Outcomes');
     const colGap = 10;
     const colWidth = (contentWidth - colGap) / 2;
 
@@ -221,13 +221,13 @@ export function generateResumePdf(): void {
     const groupW = doc.getTextWidth(exp.projectGroup);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...colors.muted);
-    const metaSuffix = `  ·  ${exp.engagementType}  ·  ${exp.platforms}`;
+    const metaSuffix = `  ·  ${exp.platforms}`;
     if (groupW + doc.getTextWidth(metaSuffix) <= contentWidth) {
       doc.text(metaSuffix, marginX + groupW, y);
       y += 4.8;
     } else {
       y += 4;
-      addWrappedText(`${exp.engagementType} · ${exp.platforms}`, marginX, contentWidth, 8.3, colors.muted, 'normal', 4);
+      addWrappedText(exp.platforms, marginX, contentWidth, 8.3, colors.muted, 'normal', 4);
       y += 0.8;
     }
 

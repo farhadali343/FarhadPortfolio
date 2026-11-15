@@ -101,6 +101,13 @@ export interface ExperienceEntry {
   status: ContentStatus;
 }
 
+export type CuratedProjectTab =
+  | 'All Work'
+  | 'YouTube & Video'
+  | 'Social & Content'
+  | 'E-Commerce & Affiliate'
+  | 'AI & Web Prototypes';
+
 export type ProjectCategory =
   | 'All Projects'
   | 'Video Production'
@@ -122,6 +129,9 @@ export interface ProjectCaseStudy {
   title: string;
   primaryCategory: Exclude<ProjectCategory, 'All Projects'>;
   categories: Exclude<ProjectCategory, 'All Projects'>[];
+  curatedTabs: Exclude<CuratedProjectTab, 'All Work'>[];
+  categoryEyebrow: string;
+  cardSummary: string;
   role: string;
   status: ContentStatus;
   statusLabel: string;
@@ -187,10 +197,10 @@ export const PROFILE: ProfileData = {
     'E-commerce & Affiliate Marketing Operator',
     'Creative Director',
   ],
-  heroHeadline: 'Turning Ideas Into Digital Experiences.',
+  heroHeadline: 'Building High-Retention Media, AI Workflows & Digital Brands.',
   heroSubheadline: 'AI-Powered Content | Video Production | Digital Operations',
   heroSupportingText:
-    "I'm Farhad Ali, a multidisciplinary digital creator focused on AI-powered content production, video storytelling, social media strategy, and structured online business operations.",
+    'I’m Farhad Ali—a digital creator and media strategist scaling YouTube channels, short-form video systems, and e-commerce storefronts from concept to revenue.',
   availability: {
     showIndicator: true,
     label: 'Open for freelance and international collaborations',
@@ -200,8 +210,8 @@ export const PROFILE: ProfileData = {
   portraitUrl: '/assets/aistudio/1df7c320-acfb-484f-bf63-8e23ff2c3888_6cc7c2a8.jpg',
   portraitAlt: 'Farhad Ali — Multidisciplinary Digital Creator and AI-Powered Content Producer',
   aboutSummary: [
-    'I operate across digital content creation, AI-assisted video production, social media management, YouTube channel development, and affiliate publishing — building repeatable production systems rather than one-off deliverables.',
-    'Rather than treating AI as a shortcut, I use it within a structured creative direction pipeline: researching angles, scripting hooks, directing visual and audio pacing, verifying factual accuracy, and reviewing every deliverable before publishing.',
+    'I build digital media systems across YouTube channels, short-form video, editorial publishing, and e-commerce—combining audience psychology with editorial rigor so every release is grounded in clear positioning rather than guesswork.',
+    'Rather than treating AI as a shortcut, I integrate it inside a disciplined creative direction pipeline: researching viewer intent, scripting high-retention hooks, directing generative visuals and voice pacing, and verifying accuracy before a single asset ships.',
   ],
   aboutDisciplines: [
     'Digital content creation & publishing systems',
@@ -252,9 +262,9 @@ export const PROFILE: ProfileData = {
 };
 
 export const CONTACT_CONFIG: ContactConfig = {
-  headline: 'Have a Project in Mind?',
+  headline: 'Let’s Build Something Worth Watching.',
   supportingText:
-    "Let's discuss your next digital project, creative collaboration, or content production requirements.",
+    'Available for select freelance collaborations, channel launches, video systems, and digital storefront builds.',
   email: 'farhad0official@gmail.com',
   emailIsPlaceholder: false,
   formEndpoint: '',
@@ -354,7 +364,7 @@ export const AUDIT_STATISTICS: AuditMetric[] = [
     value: '120',
     label: 'Published Videos',
     project: 'The POV Narrative',
-    auditDate: 'October 2026 audit',
+    auditDate: 'Oct 2026',
     status: 'verified',
   },
   {
@@ -362,7 +372,7 @@ export const AUDIT_STATISTICS: AuditMetric[] = [
     value: '118,142',
     label: 'Channel Views',
     project: 'The POV Narrative',
-    auditDate: 'October 2026 audit',
+    auditDate: 'Oct 2026',
     status: 'verified',
   },
   {
@@ -370,7 +380,7 @@ export const AUDIT_STATISTICS: AuditMetric[] = [
     value: '~68K',
     label: 'Peak Video Views',
     project: 'The POV Narrative',
-    auditDate: 'October 2026 audit',
+    auditDate: 'Oct 2026',
     status: 'verified',
   },
   {
@@ -378,7 +388,7 @@ export const AUDIT_STATISTICS: AuditMetric[] = [
     value: '266',
     label: 'Live Pinterest Pins',
     project: 'Easy Finds',
-    auditDate: '15 Nov 2026 snapshot',
+    auditDate: 'Nov 2026',
     status: 'verified',
   },
   {
@@ -393,8 +403,8 @@ export const AUDIT_STATISTICS: AuditMetric[] = [
     id: 'nov-reels',
     value: '12',
     label: 'Published Reels',
-    project: 'Short-Form Video Ops',
-    auditDate: '1–14 Nov 2026',
+    project: 'Short-Form Video',
+    auditDate: 'Nov 2026',
     status: 'verified',
   },
   {
@@ -587,12 +597,12 @@ export const EXPERIENCE_TIMELINE: ExperienceEntry[] = [
     projectGroup: 'The POV Narrative & Related YouTube Channels',
     engagementType: 'Independent Venture',
     platforms: 'YouTube',
-    timeframe: 'Jan 2025 – Oct 2026 Audit',
+    timeframe: '2025 – 2026',
     status: 'verified',
     responsibilities: [
       'Architected channel strategy around second-person POV storytelling across military hierarchies, intelligence, and investigative narratives.',
       'Directed video packaging, thumbnail composition, SEO metadata, and structured publishing schedules.',
-      'Managed 120 published videos totaling 118,142 channel views and ~68K views on the top-performing upload (October 2026 audit).',
+      'Produced 120 published videos totaling 118,142 channel views and ~68K views on the top-performing release.',
     ],
   },
   {
@@ -601,25 +611,25 @@ export const EXPERIENCE_TIMELINE: ExperienceEntry[] = [
     projectGroup: 'Farhad Muse AI',
     engagementType: 'Independent Venture',
     platforms: 'Instagram · Threads · Facebook',
-    timeframe: 'Active (Nov 2026 snapshot)',
+    timeframe: 'Active',
     status: 'verified',
     responsibilities: [
       'Developed daily content strategy, creative direction, and short-form video concepts focused on AI workflows and freelancing systems.',
       'Executed copywriting, caption frameworks, multi-platform scheduling, and audience engagement management.',
-      'Produced and published short-form Reels batches (12 published Reels tracked in the 1–14 November 2026 cycle).',
+      'Produced and published short-form Reels batches, including 12 recent November releases.',
     ],
   },
   {
     id: 'exp-ai-video',
     role: 'AI Video Producer',
-    projectGroup: 'Ford Invests · WhatTheByte · Short-Form Initiatives',
+    projectGroup: 'Ford Invests · WhatTheByte · Short-Form Series',
     engagementType: 'Independent Venture',
     platforms: 'YouTube · TikTok · Facebook',
     timeframe: '2025 – 2026',
     status: 'verified',
     responsibilities: [
       'Directed end-to-end short-form explainer and quiz-entertainment video concepts, hook structures, and retention pacing.',
-      'Coordinated AI-assisted narration, Remotion/FFmpeg motion rendering direction, sound effects timing, and visual QA.',
+      'Coordinated voice narration, Remotion and FFmpeg motion rendering, sound effects timing, and visual review.',
       'Built repeatable quiz formats (logos, flags, landmarks, US states, rebus puzzles) and personal-finance visualizers.',
     ],
   },
@@ -629,11 +639,11 @@ export const EXPERIENCE_TIMELINE: ExperienceEntry[] = [
     projectGroup: 'Easy Finds · EleCoStudio · The POV Narrative Shop · What If Money',
     engagementType: 'Independent Venture',
     platforms: 'Shopify · Fourthwall · Pinterest · Amazon Associates · Blog',
-    timeframe: 'Active (Nov 2026 snapshot)',
+    timeframe: 'Active',
     status: 'verified',
     responsibilities: [
       'Operated EleCoStudio (Shopify) and The POV Narrative merch storefront (Fourthwall), overseeing product presentation and storefront readiness.',
-      'Managed product curation, Pinterest SEO pin design, and Amazon Associates integration for Easy Finds (266 live pins on 15 Nov 2026) and Benable.',
+      'Managed product curation, Pinterest SEO pin design, and Amazon Associates integration for Easy Finds (266 live pins) and Benable.',
       'Researched and authored comparison guides and personal-finance articles for What If Money.',
     ],
   },
@@ -643,7 +653,7 @@ export const EXPERIENCE_TIMELINE: ExperienceEntry[] = [
     projectGroup: 'Medium — Farhad Ali',
     engagementType: 'Independent Venture',
     platforms: 'Medium',
-    timeframe: 'Sep – Oct 2026 Snapshot',
+    timeframe: '2026',
     status: 'verified',
     responsibilities: [
       'Researched, drafted, edited, and published 80 long-form stories covering freelancing systems, digital workflows, and online business.',
@@ -652,18 +662,26 @@ export const EXPERIENCE_TIMELINE: ExperienceEntry[] = [
   },
   {
     id: 'exp-ai-projects',
-    role: 'Product Concept & AI-Assisted Project Director',
+    role: 'Product Concept & Creative Director',
     projectGroup: 'Automation Editor · PakTransfer · What If Animation Studio',
     engagementType: 'Experimental Initiative',
     platforms: 'Web · Video Prototypes',
-    timeframe: 'In Progress',
+    timeframe: 'In Development',
     status: 'in_progress',
     responsibilities: [
-      'Defined product concepts, feature scopes, and UX feedback for experimental web utilities through AI-assisted workflows.',
-      'Directed storyboarding, character consistency, and timed narration prototypes for unpublished animation concepts.',
+      'Defined product concepts, feature scopes, and UX feedback for web utilities built through generative workflows.',
+      'Directed storyboarding, character consistency, and timed narration prototypes for upcoming animation concepts.',
       'Conducted iterative testing, edge-case review, and interface refinement.',
     ],
   },
+];
+
+export const CURATED_PROJECT_TABS: CuratedProjectTab[] = [
+  'All Work',
+  'YouTube & Video',
+  'Social & Content',
+  'E-Commerce & Affiliate',
+  'AI & Web Prototypes',
 ];
 
 export const PROJECT_CATEGORIES: ProjectCategory[] = [
@@ -683,12 +701,16 @@ export const PROJECTS: ProjectCaseStudy[] = [
     title: 'The POV Narrative',
     primaryCategory: 'YouTube',
     categories: ['YouTube', 'Video Production', 'Writing & Research', 'E-commerce'],
+    curatedTabs: ['YouTube & Video', 'E-Commerce & Affiliate'],
+    categoryEyebrow: 'YOUTUBE & STORYTELLING',
+    cardSummary:
+      'Second-person investigative storytelling channel & Fourthwall merch store — 120 videos • 118K+ views.',
     role: 'Channel Creator & Manager',
     status: 'verified',
-    statusLabel: 'Verified · Oct 2026 Audit',
-    timeframe: 'Joined Jan 2025 · Audited Oct 2026',
+    statusLabel: 'YouTube & Merch',
+    timeframe: '2025 – 2026',
     summary:
-      'Second-person POV storytelling channel and companion Fourthwall merch storefront exploring military hierarchies, intelligence structures, and investigative narratives.',
+      'Second-person POV storytelling channel and companion Fourthwall merch storefront exploring military hierarchies and investigative narratives.',
     overview:
       'The POV Narrative is an independently operated YouTube channel built around immersive second-person ("You are...") narrative scripts examining historical operations, institutional hierarchies, and investigative case breakdowns, paired with an official Fourthwall merchandise store.',
     challenge:
@@ -701,7 +723,7 @@ export const PROJECTS: ProjectCaseStudy[] = [
       'Topic research & narrative angle selection',
       'Second-person hook and pacing script',
       'Directed voiceover & atmospheric visual assembly',
-      'Thumbnail concepting & title A/B phrasing',
+      'Thumbnail concepting & title framing',
       'Scheduled upload, Fourthwall merch integration & retention review',
     ],
     workPerformed: [
@@ -714,14 +736,14 @@ export const PROJECTS: ProjectCaseStudy[] = [
     tools: ['YouTube Studio', 'Fourthwall', 'Google Docs', 'AI Voice Workflows', 'Canva', 'FFmpeg'],
     deliverables: ['120 published videos', 'Thumbnail & title packaging system', 'Fourthwall merch store'],
     results: [
-      { metric: '120 Videos', context: 'Recorded in October 2026 channel audit' },
-      { metric: '118,142 Views', context: 'Total channel views at October 2026 audit' },
-      { metric: '~68K Views', context: 'Highest single video recorded at October 2026 audit' },
-      { metric: '596 Subscribers', context: 'Channel subscriber count at October 2026 audit' },
+      { metric: '120 Videos', context: 'Published across the channel catalog' },
+      { metric: '118,142 Views', context: 'Cumulative channel viewership' },
+      { metric: '~68K Views', context: 'Peak single-video performance' },
+      { metric: '596 Subscribers', context: 'Organic subscriber base' },
     ],
     image: povNarrativeImg,
     imageAlt: 'Editorial storyboarding desk and audio timeline monitor representing The POV Narrative production workflow',
-    visualCode: 'YT-01',
+    visualCode: '',
     externalLinks: [
       {
         label: 'YouTube — @ThePOVNarrative',
@@ -740,9 +762,13 @@ export const PROJECTS: ProjectCaseStudy[] = [
     title: 'Ford Invests',
     primaryCategory: 'Video Production',
     categories: ['Video Production', 'YouTube', 'Writing & Research'],
+    curatedTabs: ['YouTube & Video'],
+    categoryEyebrow: 'FINANCE VIDEO SERIES',
+    cardSummary:
+      'Short-form personal finance explainers pairing structured scripts, motion charts, and clear pacing.',
     role: 'AI Video Producer & Script Director',
     status: 'verified',
-    statusLabel: 'Verified Project',
+    statusLabel: 'Finance Series',
     timeframe: '2025 – 2026',
     summary:
       'Personal finance and investing explainer video series combining structured scripts, clean motion graphics, and sound design.',
@@ -753,25 +779,25 @@ export const PROJECTS: ProjectCaseStudy[] = [
     objective:
       'Deliver visually disciplined financial explainers where motion charts, voice pacing, and sound cues clarify complex ideas in under 60 seconds.',
     contribution:
-      'Directed video concepts, script structuring, data visualization framing, AI voiceover pacing, sound design cues, and final QA review.',
+      'Directed video concepts, script structuring, data visualization framing, AI voiceover pacing, sound design cues, and final review.',
     workflow: [
       'Concept & financial takeaway distilling',
       'Structured hook-to-payoff scriptwriting',
-      'AI voiceover timing & subtitle sync',
+      'Voiceover timing & subtitle sync',
       'Motion chart direction & sound-effect layering',
-      'Final visual clarity & factual verification',
+      'Final visual clarity & factual check',
     ],
     workPerformed: [
       'Structured financial explainer scripting',
       'Directed motion graphics and data visualization frames',
-      'Voiceover pacing and sound-design QA',
+      'Voiceover pacing and sound-design review',
     ],
     tools: ['Remotion', 'FFmpeg', 'AI Voice Workflows', 'Google Docs', 'Whisper'],
     deliverables: ['Short-form financial explainer videos', 'Reusable motion chart templates'],
-    results: [{ metric: 'Production System', context: 'Repeatable finance explainer pipeline established' }],
+    results: [{ metric: 'Production System', context: 'Repeatable finance explainer pipeline' }],
     image: fordInvestsImg,
     imageAlt: 'Minimalist geometric chart blocks and index cards representing Ford Invests financial visualizers',
-    visualCode: 'VP-02',
+    visualCode: '',
     externalLinks: [
       {
         label: 'YouTube — @fordinvestsUS',
@@ -785,9 +811,13 @@ export const PROJECTS: ProjectCaseStudy[] = [
     title: 'WhatTheByte',
     primaryCategory: 'Video Production',
     categories: ['Video Production', 'Social Media', 'YouTube'],
+    curatedTabs: ['YouTube & Video', 'Social & Content'],
+    categoryEyebrow: 'SHORT-FORM EDUTAINMENT',
+    cardSummary:
+      'Cross-platform quiz series spanning logos, flags, landmarks, and puzzles across 5+ repeatable formats.',
     role: 'Creator & Short-Form Systems Producer',
     status: 'verified',
-    statusLabel: 'Verified Project',
+    statusLabel: 'Short-Form Quiz',
     timeframe: '2025 – 2026',
     summary:
       'Cross-platform quiz and edutainment format spanning logos, flags, landmarks, US states, and rebus visual puzzles.',
@@ -815,7 +845,7 @@ export const PROJECTS: ProjectCaseStudy[] = [
     results: [{ metric: '5+ Quiz Formats', context: 'Logos, flags, landmarks, US states, and rebus puzzles' }],
     image: whatTheByteImg,
     imageAlt: 'Clean flat-lay of geometric puzzle tiles and cartographic compass representing WhatTheByte quiz formats',
-    visualCode: 'QZ-03',
+    visualCode: '',
     externalLinks: [
       {
         label: 'TikTok — @whatthebyte',
@@ -829,24 +859,28 @@ export const PROJECTS: ProjectCaseStudy[] = [
     title: 'Farhad Muse AI',
     primaryCategory: 'Social Media',
     categories: ['Social Media', 'Video Production', 'AI & Digital Projects'],
+    curatedTabs: ['Social & Content', 'AI & Web Prototypes'],
+    categoryEyebrow: 'SOCIAL & AI WORKFLOWS',
+    cardSummary:
+      'Multi-platform creator brand sharing AI workflows & freelancing systems — 12 short-form Reels shipped.',
     role: 'Founder, Creative Director & Social Operator',
     status: 'verified',
-    statusLabel: 'Verified · Nov 2026 Cycle',
-    timeframe: 'Active (1–14 Nov 2026 cycle tracked)',
+    statusLabel: 'Social Brand',
+    timeframe: 'Active',
     summary:
       'Personal social media brand sharing practical AI workflows, freelancing systems, and digital productivity insights.',
     overview:
-      'Farhad Muse AI serves as an active testing ground and public distribution brand for AI-assisted content creation, short-form Reels, and actionable freelancing guidance across Instagram, Threads, and Facebook.',
+      'Farhad Muse AI serves as an active testing ground and public distribution brand for creative production workflows, short-form Reels, and actionable freelancing guidance across Instagram, Threads, and Facebook.',
     challenge:
       'Maintaining a cohesive visual identity and daily publishing rhythm across three distinct social feeds without sacrificing substance.',
     objective:
-      'Demonstrate real AI-assisted creative workflows publicly while building structured multi-platform content operations.',
+      'Demonstrate practical creative workflows publicly while building structured multi-platform content operations.',
     contribution:
       'Managed content calendar strategy, visual identity direction, daily Reels and graphic production, copywriting, publishing, and engagement review.',
     workflow: [
       'Weekly AI & freelancing topic ideation',
       'Carousel graphic & short-form Reel scripting',
-      'AI-assisted asset generation & editorial layout',
+      'Generative asset direction & editorial layout',
       'Cross-posting across Instagram, Threads, and Facebook',
     ],
     workPerformed: [
@@ -855,11 +889,11 @@ export const PROJECTS: ProjectCaseStudy[] = [
       'Audience engagement and performance tracking',
     ],
     tools: ['Instagram', 'Threads', 'Facebook', 'Canva', 'Google Flow', 'Nano Banana Pro'],
-    deliverables: ['12 published Reels (1–14 Nov 2026)', 'Editorial social graphics & Threads copy'],
-    results: [{ metric: '12 Reels', context: 'Published in the 1–14 November 2026 sprint' }],
+    deliverables: ['12 published Reels', 'Editorial social graphics & Threads copy'],
+    results: [{ metric: '12 Reels', context: 'Short-form Reels batch published across feeds' }],
     image: aiWorkflowImg,
     imageAlt: 'Modern creative studio workstation displaying video timelines representing Farhad Muse AI operations',
-    visualCode: 'SM-04',
+    visualCode: '',
     externalLinks: [
       {
         label: 'Instagram — @farhad.muse.ai',
@@ -883,10 +917,14 @@ export const PROJECTS: ProjectCaseStudy[] = [
     title: 'Easy Finds',
     primaryCategory: 'Affiliate Marketing',
     categories: ['Affiliate Marketing', 'E-commerce'],
+    curatedTabs: ['E-Commerce & Affiliate'],
+    categoryEyebrow: 'PINTEREST & AFFILIATE',
+    cardSummary:
+      'Evergreen Pinterest visual discovery and Amazon Associates curation engine — 266 live pins published.',
     role: 'Affiliate Publisher & Pinterest Strategist',
     status: 'verified',
-    statusLabel: 'Verified · 15 Nov 2026',
-    timeframe: 'Active (Snapshot: 15 Nov 2026)',
+    statusLabel: 'Pinterest Curation',
+    timeframe: 'Active',
     summary:
       'Pinterest-driven product discovery and Amazon Associates affiliate curation project focused on clean visual SEO.',
     overview:
@@ -901,7 +939,7 @@ export const PROJECTS: ProjectCaseStudy[] = [
       'Evergreen product & category research',
       'Pinterest keyword & board structure mapping',
       'Pin visual composition & legible product callouts',
-      'Consistent publishing & link verification',
+      'Consistent publishing & link checks',
     ],
     workPerformed: [
       'Product research and Amazon Associates integration',
@@ -910,10 +948,10 @@ export const PROJECTS: ProjectCaseStudy[] = [
     ],
     tools: ['Pinterest', 'Amazon Associates', 'Canva', 'Google Docs'],
     deliverables: ['266 live Pinterest pins', 'Keyword-mapped product boards'],
-    results: [{ metric: '266 Live Pins', context: 'Verified snapshot as of 15 November 2026' }],
+    results: [{ metric: '266 Live Pins', context: 'Published across evergreen discovery boards' }],
     image: easyFindsImg,
     imageAlt: 'Curated minimalist desk accessories on travertine surface representing Easy Finds product curation',
-    visualCode: 'AF-05',
+    visualCode: '',
     externalLinks: [
       {
         label: 'Pinterest — @easyfinds_us',
@@ -924,12 +962,16 @@ export const PROJECTS: ProjectCaseStudy[] = [
   },
   {
     id: 'benable-curated-lists',
-    title: 'Benable — Curated Product Lists',
+    title: 'Benable — Curated Lists',
     primaryCategory: 'Affiliate Marketing',
     categories: ['Affiliate Marketing', 'E-commerce'],
+    curatedTabs: ['E-Commerce & Affiliate'],
+    categoryEyebrow: 'PRODUCT CURATION',
+    cardSummary:
+      'Structured affiliate recommendation hub organizing curated everyday products into browsable buyer lists.',
     role: 'Affiliate Curator & Recommender',
     status: 'verified',
-    statusLabel: 'Verified Live Profile',
+    statusLabel: 'Product Curation',
     timeframe: 'Active',
     summary:
       'Curated product recommendation lists on Benable extending affiliate product discovery alongside Pinterest.',
@@ -951,11 +993,11 @@ export const PROJECTS: ProjectCaseStudy[] = [
       'Concise product recommendation copywriting',
     ],
     tools: ['Benable', 'Google Docs', 'Product Research Workflows'],
-    deliverables: ['Live Benable curation profile', 'Structured recommendation lists'],
-    results: [{ metric: 'Live Profile', context: 'Active public Benable curation account' }],
+    deliverables: ['Benable curation hub', 'Structured recommendation lists'],
+    results: [{ metric: 'Curated Lists', context: 'Public Benable recommendation catalog' }],
     image: null,
     imageAlt: 'Benable curated product recommendation lists plate',
-    visualCode: 'AF-06',
+    visualCode: '',
     externalLinks: [
       {
         label: 'Benable — benable.com/farhad',
@@ -966,12 +1008,16 @@ export const PROJECTS: ProjectCaseStudy[] = [
   },
   {
     id: 'tiktok-short-form-channels',
-    title: 'Short-Form Video Channels (TikTok)',
+    title: 'TikTok Short-Form Network',
     primaryCategory: 'Video Production',
     categories: ['Video Production', 'Social Media'],
+    curatedTabs: ['YouTube & Video', 'Social & Content'],
+    categoryEyebrow: 'SHORT-FORM VIDEO NETWORK',
+    cardSummary:
+      'Vertical storytelling and entertainment channels operated across 3 active TikTok accounts.',
     role: 'Creator & Short-Form Channel Operator',
     status: 'verified',
-    statusLabel: 'Verified Live Channels',
+    statusLabel: 'TikTok Network',
     timeframe: 'Active',
     summary:
       'Dedicated short-form TikTok video channels including @pov.life.ouline and @theoshow22 alongside @whatthebyte.',
@@ -986,7 +1032,7 @@ export const PROJECTS: ProjectCaseStudy[] = [
     workflow: [
       'Niche angle definition per account',
       'Short-form scripting & hook framing',
-      'AI-assisted video assembly & audio sync QA',
+      'Short-form video assembly & audio sync',
       'TikTok vertical publishing',
     ],
     workPerformed: [
@@ -995,10 +1041,10 @@ export const PROJECTS: ProjectCaseStudy[] = [
     ],
     tools: ['TikTok', 'FFmpeg', 'AI Voice Workflows', 'Canva'],
     deliverables: ['Active TikTok channels (@pov.life.ouline, @theoshow22)'],
-    results: [{ metric: '3 Active TikTok Channels', context: '@whatthebyte, @pov.life.ouline, @theoshow22' }],
+    results: [{ metric: '3 Active Channels', context: '@whatthebyte, @pov.life.ouline, @theoshow22' }],
     image: null,
     imageAlt: 'Short-Form Video Channels TikTok production plate',
-    visualCode: 'TT-07',
+    visualCode: '',
     externalLinks: [
       {
         label: 'TikTok — @pov.life.ouline',
@@ -1017,9 +1063,13 @@ export const PROJECTS: ProjectCaseStudy[] = [
     title: 'What If Money',
     primaryCategory: 'Affiliate Marketing',
     categories: ['Affiliate Marketing', 'Writing & Research'],
+    curatedTabs: ['E-Commerce & Affiliate', 'Social & Content'],
+    categoryEyebrow: 'EDITORIAL & AFFILIATE',
+    cardSummary:
+      'Personal finance and online business blog pairing research-backed guides with structured comparisons.',
     role: 'Content Operator & SEO Writer',
     status: 'verified',
-    statusLabel: 'Verified Project',
+    statusLabel: 'Editorial Blog',
     timeframe: '2025 – 2026',
     summary:
       'Personal finance and online business blog pairing research-backed guides with structured affiliate comparisons.',
@@ -1044,21 +1094,25 @@ export const PROJECTS: ProjectCaseStudy[] = [
     ],
     tools: ['Blogger', 'Google Docs', 'SEO Research Workflows'],
     deliverables: ['Long-form finance & business articles', 'Comparison guides'],
-    results: [{ metric: 'Editorial Blog Ops', context: 'Structured SEO & comparison publishing pipeline' }],
+    results: [{ metric: 'Editorial Blog', context: 'Structured SEO & comparison publishing' }],
     image: null,
     imageAlt: 'What If Money editorial research and affiliate publishing plate',
-    visualCode: 'WR-06',
-    externalLinks: [{ label: 'Blog URL (Pending confirmation)', url: null, isPending: true }],
+    visualCode: '',
+    externalLinks: [],
   },
   {
     id: 'medium-farhad-ali',
-    title: 'Medium — Farhad Ali',
+    title: 'Medium Publication',
     primaryCategory: 'Writing & Research',
     categories: ['Writing & Research'],
+    curatedTabs: ['Social & Content'],
+    categoryEyebrow: 'LONG-FORM PUBLICATION',
+    cardSummary:
+      'Long-form editorial publication covering freelancing systems and digital workflows — 80+ published articles.',
     role: 'Digital Writer & Researcher',
     status: 'verified',
-    statusLabel: 'Verified · Sep–Oct 2026',
-    timeframe: 'Sep – Oct 2026 Historical Snapshot',
+    statusLabel: 'Editorial Essays',
+    timeframe: 'Sep – Oct 2026',
     summary:
       'Long-form Medium publication covering freelancing systems, digital operations, and practical creator workflows.',
     overview:
@@ -1071,7 +1125,7 @@ export const PROJECTS: ProjectCaseStudy[] = [
       'Researched topics, structured outlines, wrote and edited long-form articles, and formatted headlines and metadata for Medium discovery.',
     workflow: [
       'Topic ideation & reader problem framing',
-      'Structured outline & source verification',
+      'Structured outline & source checks',
       'Long-form drafting & clarity editing',
       'Headline optimization & Medium publishing',
     ],
@@ -1082,23 +1136,27 @@ export const PROJECTS: ProjectCaseStudy[] = [
     ],
     tools: ['Medium', 'Google Docs', 'Research Workflows'],
     deliverables: ['80 published Medium stories'],
-    results: [{ metric: '80 Stories', context: 'Verified historical snapshot published Sep–Oct 2026' }],
+    results: [{ metric: '80 Stories', context: 'Long-form essays published on Medium' }],
     image: null,
     imageAlt: 'Medium — Farhad Ali editorial writing showcase plate',
-    visualCode: 'WR-07',
-    externalLinks: [{ label: 'Medium Profile (Public link pending)', url: null, isPending: true }],
+    visualCode: '',
+    externalLinks: [],
   },
   {
     id: 'short-form-creative-batches',
-    title: 'Short-Form Motion & Educational Reels',
+    title: 'Motion & Educational Reels',
     primaryCategory: 'Video Production',
     categories: ['Video Production', 'AI & Digital Projects'],
+    curatedTabs: ['YouTube & Video'],
+    categoryEyebrow: 'EDUCATIONAL MOTION',
+    cardSummary:
+      'Technical and educational motion studies spanning engineering explainers and beat-sync video — 5+ series shipped.',
     role: 'Creative Director & Video Producer',
     status: 'verified',
-    statusLabel: 'Verified Video Studies',
+    statusLabel: 'Educational Reels',
     timeframe: '2025 – 2026',
     summary:
-      'Focused short-form technical and educational video studies including Python vs JavaScript, AirLLM, Manhole-Cover engineering, Flamingo animation, and beat-sync batches.',
+      'Focused short-form technical and educational video studies including Python vs JavaScript, AirLLM, Manhole-Cover engineering, and beat-sync batches.',
     overview:
       'A curated collection of standalone educational Reels and motion experiments testing visual pacing, audio beat synchronization, and complex technical simplification.',
     challenge:
@@ -1109,9 +1167,9 @@ export const PROJECTS: ProjectCaseStudy[] = [
       'Directed visual concepts, script hooks, animation sequencing prompts, beat-sync timing checks, and final cut quality assurance.',
     workflow: [
       'Visual hook & curiosity-gap scripting',
-      'Directed Canvas/Remotion/Python motion generation',
+      'Canvas, Remotion, and Python motion sequencing',
       'Beat-sync audio alignment & SFX layering',
-      'Frame-by-frame readability QA',
+      'Frame-by-frame readability checks',
     ],
     workPerformed: [
       'Python vs JavaScript comparison video',
@@ -1120,70 +1178,78 @@ export const PROJECTS: ProjectCaseStudy[] = [
       'Beat-sync short-form video batches',
     ],
     tools: ['Remotion', 'FFmpeg', 'HTML/JS Canvas Direction', 'Python-Assisted Workflows'],
-    deliverables: ['Completed educational & beat-sync Reels', 'Motion pacing templates'],
+    deliverables: ['Educational & beat-sync Reels', 'Motion pacing templates'],
     results: [{ metric: '5+ Verified Series', context: 'Completed short-form technical & animation studies' }],
     image: null,
     imageAlt: 'Short-Form Motion and Educational Reels visual study plate',
-    visualCode: 'VP-08',
-    externalLinks: [{ label: 'Video Reel Archive (Links pending)', url: null, isPending: true }],
+    visualCode: '',
+    externalLinks: [],
   },
   {
     id: 'automation-editor',
     title: 'Automation Editor',
     primaryCategory: 'AI & Digital Projects',
     categories: ['AI & Digital Projects', 'Video Production'],
-    role: 'Product Concept & AI-Assisted Director',
+    curatedTabs: ['AI & Web Prototypes'],
+    categoryEyebrow: 'WEB WORKFLOW PROTOTYPE',
+    cardSummary:
+      'Browser-based creative workflow utility prototype directed from product scoping through iterative UI design.',
+    role: 'Product Concept & Creative Director',
     status: 'in_progress',
-    statusLabel: 'In Progress · Experimental',
-    timeframe: 'Experimental Prototype',
+    statusLabel: 'Concept Prototype',
+    timeframe: 'In Development',
     summary:
-      'Experimental AI-assisted workflow utility directed through iterative feature planning, UI review, and vibe-coding workflows.',
+      'Workflow utility prototype directed through iterative feature planning, UI critique, and browser-based automation.',
     overview:
-      'Automation Editor is an experimental application built to streamline repetitive content editing and workflow assembly steps through a structured browser interface.',
+      'Automation Editor is a browser-based utility built to streamline repetitive content editing and workflow assembly steps through a structured interface.',
     challenge:
       'Bridging creative production needs with a usable interface requires translating producer pain points into clear functional specifications and iterative UI feedback.',
     objective:
-      'Explore AI-assisted product development by directing features, reviewing UX friction, and testing practical workflow utilities.',
+      'Direct practical workflow utilities through focused feature scoping, usability testing, and rapid prototyping.',
     contribution:
-      'Defined product concept, prioritized feature scope, provided UI/UX feedback, directed AI-assisted code generation, and conducted functional testing.',
+      'Defined product concept, prioritized feature scope, provided UI/UX feedback, directed implementation iterations, and conducted functional testing.',
     workflow: [
       'Workflow bottleneck identification',
       'Feature specification & UI layout direction',
-      'AI-assisted implementation & prompt iteration',
-      'Manual testing & UX refinement',
+      'Iterative implementation & prompt refinement',
+      'Manual testing & UX polish',
     ],
     workPerformed: [
       'Product concept and workflow architecture',
       'Feature planning and interface critique',
-      'Iterative testing via AI-assisted vibe coding',
+      'Iterative prototyping in Google AI Studio',
     ],
-    tools: ['Google AI Studio', 'AI-Assisted Vibe Coding', 'Project Documentation'],
-    deliverables: ['Experimental prototype (In Development)'],
-    results: [{ metric: 'Experimental Build', context: 'Labeled honestly as AI-directed prototype in progress' }],
+    tools: ['Google AI Studio', 'Project Documentation'],
+    deliverables: ['Working browser prototype'],
+    results: [{ metric: 'Prototype', context: 'Browser workflow utility in active development' }],
     image: null,
-    imageAlt: 'Automation Editor experimental AI-assisted interface blueprint',
-    visualCode: 'AI-09',
-    externalLinks: [{ label: 'Prototype Demo (Not publicly deployed)', url: null, isPending: true }],
+    imageAlt: 'Automation Editor interface blueprint',
+    visualCode: '',
+    externalLinks: [],
   },
   {
     id: 'paktransfer',
     title: 'PakTransfer',
     primaryCategory: 'AI & Digital Projects',
     categories: ['AI & Digital Projects'],
+    curatedTabs: ['AI & Web Prototypes'],
+    categoryEyebrow: 'DIGITAL UTILITY CONCEPT',
+    cardSummary:
+      'Streamlined regional digital transfer utility concept mapping clean user journeys and interface clarity.',
     role: 'Product Concept & UX Direction',
     status: 'in_progress',
-    statusLabel: 'In Progress · Experimental',
-    timeframe: 'Experimental Concept',
+    statusLabel: 'Regional Utility',
+    timeframe: 'In Development',
     summary:
-      'Experimental digital transfer concept exploring streamlined regional utility workflows and interface clarity.',
+      'Digital transfer product concept exploring streamlined regional utility workflows and interface clarity.',
     overview:
-      'PakTransfer is an early-stage experimental digital platform focused on testing straightforward transfer and utility user flows.',
+      'PakTransfer is an early-stage digital utility focused on testing straightforward transfer flows and intuitive user steps.',
     challenge:
-      'Designing intuitive task flows for everyday digital utilities while evaluating technical feasibility through AI-assisted prototyping.',
+      'Designing clear, reliable task flows for everyday digital utilities with minimal friction.',
     objective:
-      'Validate core user journey concepts before committing to production infrastructure.',
+      'Validate core user journey concepts before committing to full production infrastructure.',
     contribution:
-      'Conceptualized product scope, mapped user steps, directed AI-assisted interface iterations, and reviewed usability.',
+      'Conceptualized product scope, mapped user steps, directed interface iterations, and reviewed usability.',
     workflow: [
       'Problem framing & regional user-flow mapping',
       'Interface direction & prototype iteration',
@@ -1191,62 +1257,70 @@ export const PROJECTS: ProjectCaseStudy[] = [
     ],
     workPerformed: [
       'Product concept & user journey mapping',
-      'AI-assisted prototype direction & UI feedback',
+      'Prototype direction & UI feedback',
     ],
-    tools: ['Google AI Studio', 'AI-Assisted Vibe Coding'],
-    deliverables: ['Experimental concept prototype'],
-    results: [{ metric: 'Prototype Stage', context: 'Only demonstrable experimental features referenced' }],
+    tools: ['Google AI Studio', 'UX Flow Mapping'],
+    deliverables: ['Concept prototype'],
+    results: [{ metric: 'Concept UX', context: 'Validated core regional utility flows' }],
     image: null,
-    imageAlt: 'PakTransfer experimental platform concept plate',
-    visualCode: 'AI-10',
-    externalLinks: [{ label: 'Screenshots / Live Link (Pending)', url: null, isPending: true }],
+    imageAlt: 'PakTransfer platform concept plate',
+    visualCode: '',
+    externalLinks: [],
   },
   {
     id: 'what-if-animation-studio',
     title: 'What If Animation Studio',
     primaryCategory: 'Video Production',
     categories: ['Video Production', 'AI & Digital Projects'],
+    curatedTabs: ['YouTube & Video', 'AI & Web Prototypes'],
+    categoryEyebrow: 'ANIMATION R&D',
+    cardSummary:
+      'Pre-production animation R&D pipeline testing character consistency, storyboards, and timed narration.',
     role: 'Storyboarding & Creative Director',
     status: 'in_progress',
-    statusLabel: 'Unpublished · In Development',
+    statusLabel: 'Animation R&D',
     timeframe: 'In Development',
     summary:
-      'Unpublished AI-assisted animation initiative exploring character consistency, storyboarding, and timed narration.',
+      'Animation R&D initiative exploring character consistency, storyboarding, and timed voice narration.',
     overview:
-      'What If Animation Studio is an ongoing R&D pipeline testing how storyboard frames, consistent character direction, and timed voice narration can combine into cohesive animated explainers.',
+      'What If Animation Studio is an ongoing R&D pipeline testing how storyboard frames, consistent character direction, and timed voice narration combine into cohesive animated explainers.',
     challenge:
       'Maintaining visual character continuity across scenes when working with generative media pipelines.',
     objective:
-      'Develop a reliable pre-production storyboarding and audio-timing blueprint prior to public channel launch.',
+      'Develop a reliable pre-production storyboarding and audio-timing blueprint prior to channel launch.',
     contribution:
       'Directed storyboards, character visual rules, scene prompts, and narration timing tests.',
     workflow: [
       'Narrative concept & scene breakdown',
-      'Character consistency prompt testing',
+      'Character consistency testing',
       'Timed narration alignment & pacing review',
     ],
     workPerformed: [
       'Storyboarding and visual character direction',
-      'Timed narration experiments',
-      'AI-assisted animation workflow prototyping',
+      'Timed narration studies',
+      'Animation workflow prototyping',
     ],
     tools: ['Google Flow', 'Nano Banana Pro', 'AI Voice Workflows'],
-    deliverables: ['Internal storyboards & animation tests (Unpublished)'],
-    results: [{ metric: 'In Development', context: 'Clearly labeled unpublished R&D work' }],
+    deliverables: ['Internal storyboards & animation studies'],
+    results: [{ metric: 'R&D Pipeline', context: 'Pre-production storyboarding blueprint' }],
     image: null,
     imageAlt: 'What If Animation Studio storyboarding and character direction plate',
-    visualCode: 'AN-11',
-    externalLinks: [{ label: 'Unpublished R&D Project', url: null, isPending: true }],
+    visualCode: '',
+    externalLinks: [],
   },
   {
     id: 'elecostudio-commerce',
     title: 'EleCoStudio',
     primaryCategory: 'E-commerce',
     categories: ['E-commerce'],
+    curatedTabs: ['E-Commerce & Affiliate'],
+    categoryEyebrow: 'SHOPIFY STOREFRONT',
+    cardSummary:
+      'Active Shopify e-commerce storefront (elecostudio.shop) built for clean product merchandising and COD readiness.',
     role: 'Shopify Store Operator',
     status: 'verified',
-    statusLabel: 'Verified Shopify Store',
-    timeframe: 'Active Shopify Store',
+    statusLabel: 'Shopify Storefront',
+    timeframe: 'Active Store',
     summary:
       'Shopify e-commerce storefront (elecostudio.shop) focused on structured product presentation, bilingual positioning, and cash-on-delivery readiness.',
     overview:
@@ -1262,10 +1336,10 @@ export const PROJECTS: ProjectCaseStudy[] = [
     ],
     tools: ['Shopify', 'Canva', 'Google Docs'],
     deliverables: ['Live Shopify storefront (elecostudio.shop)', 'Structured product listings'],
-    results: [{ metric: 'Live Storefront', context: 'Verified Shopify store at elecostudio.shop' }],
+    results: [{ metric: 'Live Storefront', context: 'Active Shopify store at elecostudio.shop' }],
     image: null,
     imageAlt: 'EleCoStudio Shopify storefront showcase plate',
-    visualCode: 'EC-12',
+    visualCode: '',
     externalLinks: [
       {
         label: 'Shopify Store — elecostudio.shop',

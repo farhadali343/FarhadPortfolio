@@ -1,191 +1,231 @@
-import { useState } from 'react';
 import {
-  AttributionLevel,
-  EXPERTISE_CATEGORIES,
-  TOOL_ECOSYSTEM,
-} from '../data/portfolioData';
+  Film,
+  PenTool,
+  PlaySquare,
+  Share2,
+  ShoppingBag,
+  Sparkles,
+} from 'lucide-react';
 import TiltCard3D from './TiltCard3D';
 
-type AttributionFilter = 'All' | AttributionLevel;
+interface CapabilityItem {
+  number: string;
+  title: string;
+  summary: string;
+  deliverables: [string, string, string];
+  Icon: typeof PlaySquare;
+}
 
-const ATTRIBUTION_OPTIONS: AttributionFilter[] = [
-  'All',
-  'Hands-on',
-  'AI-assisted / Directed',
-  'Learning / Experimental',
+const CORE_CAPABILITIES: CapabilityItem[] = [
+  {
+    number: '01.',
+    title: 'YouTube Channel Growth & Packaging',
+    summary:
+      'Channel architecture, curiosity-driven packaging, and retention diagnostics engineered for organic reach.',
+    deliverables: [
+      'Niche positioning & format architecture',
+      'Thumbnail direction & high-CTR title framing',
+      'YouTube SEO metadata & retention analysis',
+    ],
+    Icon: PlaySquare,
+  },
+  {
+    number: '02.',
+    title: 'Short-Form Video & Motion Systems',
+    summary:
+      'Repeatable vertical and widescreen video pipelines uniting tight hooks, motion graphics, and audio pacing.',
+    deliverables: [
+      'Reels, Shorts & TikTok batch production',
+      'Hook scripting & retention pacing structure',
+      'Remotion motion graphics & sound design QA',
+    ],
+    Icon: Film,
+  },
+  {
+    number: '03.',
+    title: 'AI-Directed Content Pipelines',
+    summary:
+      'Structured generative media, voice synthesis, and workflow utilities guided by strict creative direction.',
+    deliverables: [
+      'Prompt engineering & visual consistency QA',
+      'AI voiceover timing & Whisper caption sync',
+      'Browser workflow & utility prototyping',
+    ],
+    Icon: Sparkles,
+  },
+  {
+    number: '04.',
+    title: 'Social Media Strategy & Brand Ops',
+    summary:
+      'Cohesive multi-platform publishing calendars, editorial graphics, and audience growth across active feeds.',
+    deliverables: [
+      'Instagram, Threads & Facebook operations',
+      'Content calendars & daily publishing cadence',
+      'Carousel visual identity & social copywriting',
+    ],
+    Icon: Share2,
+  },
+  {
+    number: '05.',
+    title: 'E-Commerce & Affiliate Ecosystems',
+    summary:
+      'High-intent visual product discovery, creator merch storefronts, and structured affiliate merchandising.',
+    deliverables: [
+      'Shopify & Fourthwall storefront operations',
+      'Pinterest discovery SEO & board taxonomy',
+      'Amazon Associates & Benable curation',
+    ],
+    Icon: ShoppingBag,
+  },
+  {
+    number: '06.',
+    title: 'Editorial Research & SEO Writing',
+    summary:
+      'Long-form essays, search-intent product guides, and fact-checked narrative scripts built for clarity.',
+    deliverables: [
+      'Long-form Medium essays & topic research',
+      'SEO comparison blogs & buyer guides',
+      'Source verification & structural editing',
+    ],
+    Icon: PenTool,
+  },
+];
+
+interface StackColumn {
+  title: string;
+  tools: string[];
+}
+
+const PRODUCTION_STACK: StackColumn[] = [
+  {
+    title: 'Video & Motion',
+    tools: ['Remotion', 'FFmpeg', 'Python Video Workflows', 'HTML/JS Canvas'],
+  },
+  {
+    title: 'AI & Automation',
+    tools: [
+      'Google AI Studio',
+      'Nano Banana Pro',
+      'Google Flow',
+      'Whisper',
+      'AI Voice & TTS',
+    ],
+  },
+  {
+    title: 'Publishing & Growth',
+    tools: [
+      'YouTube Studio',
+      'Canva',
+      'Pinterest',
+      'Medium',
+      'Instagram & Threads',
+    ],
+  },
+  {
+    title: 'Commerce & Web',
+    tools: ['Shopify', 'Amazon Associates', 'Fourthwall', 'Benable', 'Blogger'],
+  },
 ];
 
 export default function Expertise() {
-  const [attributionFilter, setAttributionFilter] = useState<AttributionFilter>('All');
-
-  const getAttributionPillStyle = (level: AttributionLevel) => {
-    switch (level) {
-      case 'Hands-on':
-        return 'bg-slate-100 text-[#0F172A] border-slate-200';
-      case 'AI-assisted / Directed':
-        return 'bg-[#2563EB]/10 text-[#2563EB] border-[#2563EB]/20';
-      case 'Learning / Experimental':
-        return 'bg-[#C28E36]/12 text-[#9A6B1E] border-[#C28E36]/30';
-    }
-  };
-
   return (
-    <section id="expertise" className="py-16 lg:py-24 border-b border-slate-200/80 bg-[#F8FAFC]">
+    <section id="expertise" className="py-24 lg:py-32 border-b border-slate-200/80 bg-[#F8FAFC]">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-        {/* Header & Interactive Role Attribution Filter */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
+        {/* Executive Capabilities Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-3">
-              Expertise &amp; Tool Ecosystem
+              Capabilities &amp; Stack
             </p>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-[#0F172A] text-balance max-w-2xl">
-              Eight core disciplines backed by clear role attribution.
+            <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-[#0F172A] text-balance max-w-2xl">
+              Six core capabilities built for consistent creative scale.
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-slate-600 max-w-[65ch]">
-              Filter by hands-on execution, AI-directed production workflows, or experimental R&amp;D
-              initiatives.
-            </p>
           </div>
-
-          <div
-            role="group"
-            aria-label="Filter skills and tools by execution type"
-            className="inline-flex flex-wrap items-center gap-1 p-1.5 bg-white border border-slate-200/90 studio-card-shadow rounded-xl self-start lg:self-auto"
-          >
-            {ATTRIBUTION_OPTIONS.map((option) => {
-              const active = attributionFilter === option;
-              return (
-                <button
-                  key={option}
-                  type="button"
-                  onClick={() => setAttributionFilter(option)}
-                  className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] ${
-                    active
-                      ? 'bg-[#0F172A] text-white'
-                      : 'text-slate-600 hover:text-[#0F172A] hover:bg-slate-100'
-                  }`}
-                >
-                  {option}
-                </button>
-              );
-            })}
-          </div>
+          <p className="text-sm sm:text-base text-[#475569] max-w-[50ch] leading-relaxed">
+            End-to-end execution across narrative video, AI-directed production, social growth, and
+            digital commerce.
+          </p>
         </div>
 
-        {/* 8 Uniform-Height 3D Expertise Cards (01 through 08) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
-          {EXPERTISE_CATEGORIES.map((category, idx) => {
-            const visibleSkills =
-              attributionFilter === 'All'
-                ? category.skills
-                : category.skills.filter((skill) => skill.attribution === attributionFilter);
-
-            const formattedIndex = String(idx + 1).padStart(2, '0');
-
+        {/* 6 Core Capabilities — Clean 3x2 Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+          {CORE_CAPABILITIES.map((cap) => {
+            const Icon = cap.Icon;
             return (
               <TiltCard3D
-                key={category.id}
-                maxTilt={5}
+                key={cap.number}
+                maxTilt={4.5}
                 liftZ={8}
-                className="h-full rounded-2xl bg-white border border-slate-200/90 studio-card-shadow p-5 flex flex-col justify-between"
+                className="h-full rounded-2xl bg-white border border-slate-200/90 studio-card-shadow p-8 flex flex-col justify-between"
               >
-                <article className="h-full flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-baseline justify-between gap-2 pb-3 mb-3 border-b border-slate-200/80">
-                      <h3 className="font-display text-base font-bold text-[#0F172A]">
-                        {category.title}
-                      </h3>
-                      <span className="font-mono-tabular text-xs font-semibold text-[#2563EB]">
-                        {formattedIndex}
-                      </span>
+                <article className="h-full flex flex-col">
+                  <div className="flex items-center justify-between gap-3 mb-6">
+                    <div className="w-10 h-10 rounded-xl bg-[#F8FAFC] border border-slate-200/90 flex items-center justify-center text-[#2563EB]">
+                      <Icon className="w-5 h-5" strokeWidth={1.6} />
                     </div>
-
-                    <p className="text-xs text-slate-600 leading-relaxed mb-4">
-                      {category.description}
-                    </p>
-
-                    {visibleSkills.length > 0 ? (
-                      <ul className="space-y-3">
-                        {visibleSkills.map((skill) => (
-                          <li key={skill.name} className="text-xs leading-snug">
-                            <div className="font-medium text-[#0F172A] mb-1">{skill.name}</div>
-                            <span
-                              className={`inline-block rounded-full border px-2 py-0.5 text-[10px] font-medium ${getAttributionPillStyle(
-                                skill.attribution
-                              )}`}
-                            >
-                              {skill.attribution}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p className="text-xs text-slate-500 italic py-2">
-                        No skills in this category match &ldquo;{attributionFilter}&rdquo;.
-                      </p>
-                    )}
+                    <span className="font-mono-tabular text-xs font-semibold text-[#475569]">
+                      {cap.number}
+                    </span>
                   </div>
+
+                  <h3 className="font-display text-xl font-semibold tracking-tight text-[#0F172A] leading-snug">
+                    {cap.title}
+                  </h3>
+
+                  <p className="mt-3 text-sm text-[#475569] leading-relaxed line-clamp-2">
+                    {cap.summary}
+                  </p>
+
+                  <ul className="mt-6 pt-5 border-t border-slate-100 space-y-2.5">
+                    {cap.deliverables.map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-start gap-2.5 text-xs sm:text-[13px] text-[#0F172A] leading-snug"
+                      >
+                        <span className="font-mono-tabular text-[#2563EB] mt-0.5">—</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </article>
               </TiltCard3D>
             );
           })}
         </div>
 
-        {/* Categorized 3D Tool Ecosystem Matrix */}
-        <div className="mt-14 pt-12 border-t border-slate-200/80">
-          <div className="flex flex-wrap items-baseline justify-between gap-2 mb-6">
-            <h3 className="font-display text-xl sm:text-2xl font-bold text-[#0F172A]">
-              Categorized Tool Ecosystem
+        {/* Minimalist Production Stack — 4-Column Pill Matrix */}
+        <div className="mt-20 pt-16 border-t border-slate-200/80">
+          <div className="flex flex-wrap items-baseline justify-between gap-3 mb-8">
+            <h3 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-[#0F172A]">
+              Production Stack
             </h3>
-            <p className="text-xs text-slate-500">
-              Color-coded role attribution across creative, video, publishing, and AI tools
+            <p className="text-sm text-[#475569]">
+              Core platforms powering video rendering, AI workflows, publishing, and commerce
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
-            {TOOL_ECOSYSTEM.map((group) => {
-              const visibleTools =
-                attributionFilter === 'All'
-                  ? group.tools
-                  : group.tools.filter((tool) => tool.attribution === attributionFilter);
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+            {PRODUCTION_STACK.map((column) => (
+              <div
+                key={column.title}
+                className="rounded-2xl bg-white border border-slate-200/90 studio-card-shadow p-7 flex flex-col"
+              >
+                <h4 className="font-display text-sm font-semibold tracking-tight text-[#0F172A] pb-3.5 mb-4 border-b border-slate-100">
+                  {column.title}
+                </h4>
 
-              return (
-                <TiltCard3D
-                  key={group.id}
-                  maxTilt={4}
-                  liftZ={6}
-                  className="h-full rounded-2xl bg-white border border-slate-200/90 studio-card-shadow p-5"
-                >
-                  <h4 className="font-display text-sm font-bold text-[#0F172A] pb-3 mb-3 border-b border-slate-200/80">
-                    {group.category}
-                  </h4>
-
-                  {visibleTools.length > 0 ? (
-                    <ul className="divide-y divide-slate-100">
-                      {visibleTools.map((tool) => (
-                        <li
-                          key={tool.name}
-                          className="py-2.5 first:pt-0 last:pb-0 flex items-center justify-between gap-3 text-xs"
-                        >
-                          <span className="font-medium text-[#0F172A]">{tool.name}</span>
-                          <span
-                            className={`shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-medium ${getAttributionPillStyle(
-                              tool.attribution
-                            )}`}
-                          >
-                            {tool.attribution}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="text-xs text-slate-500 italic">
-                      No tools match &ldquo;{attributionFilter}&rdquo;.
-                    </p>
-                  )}
-                </TiltCard3D>
-              );
-            })}
+                <div className="flex flex-wrap gap-2">
+                  {column.tools.map((tool) => (
+                    <span
+                      key={tool}
+                      className="inline-flex items-center rounded-xl bg-[#F8FAFC] border border-slate-200/90 px-3 py-1.5 text-xs font-medium text-[#0F172A] hover:border-[#2563EB]/45 hover:text-[#2563EB] transition-colors"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

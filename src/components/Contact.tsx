@@ -1,23 +1,59 @@
 import { FormEvent, useState } from 'react';
-import { Check, Copy, ExternalLink, Mail, Send } from 'lucide-react';
+import {
+  ArrowRight,
+  AtSign,
+  Bookmark,
+  Check,
+  Copy,
+  Facebook,
+  Film,
+  Instagram,
+  Mail,
+  ShoppingBag,
+  Store,
+  Youtube,
+} from 'lucide-react';
 import { CONTACT_CONFIG, PROFILE } from '../data/portfolioData';
 import TiltCard3D from './TiltCard3D';
 
 interface FormErrors {
   name?: string;
   email?: string;
-  subject?: string;
+  projectType?: string;
   message?: string;
+}
+
+const PROJECT_TYPES = [
+  'YouTube Channel Strategy & Production',
+  'Short-Form Video & Motion Systems',
+  'AI-Directed Content Pipeline',
+  'Social Media & Brand Growth',
+  'E-Commerce & Affiliate Storefront',
+  'Editorial & SEO Writing',
+  'General Collaboration',
+] as const;
+
+function getChannelIcon(id: string) {
+  if (id.startsWith('yt-')) return Youtube;
+  if (id.startsWith('ig-')) return Instagram;
+  if (id.startsWith('threads-')) return AtSign;
+  if (id.startsWith('fb-')) return Facebook;
+  if (id.startsWith('pinterest-') || id.startsWith('benable-')) return Bookmark;
+  if (id.startsWith('tt-')) return Film;
+  if (id.startsWith('shopify-')) return Store;
+  return ShoppingBag;
 }
 
 export default function Contact() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [subject, setSubject] = useState('');
+  const [projectType, setProjectType] = useState<string>(PROJECT_TYPES[0]);
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState<FormErrors>({});
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const [submitState, setSubmitState] = useState<'idle' | 'submitting' | 'success' | 'draft_ready' | 'error'>('idle');
+  const [submitState, setSubmitState] = useState<
+    'idle' | 'submitting' | 'success' | 'draft_ready' | 'error'
+  >('idle');
   const [submitFeedback, setSubmitFeedback] = useState('');
 
   const validate = (): FormErrors => {
@@ -26,9 +62,9 @@ export default function Contact() {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       next.email = 'Please enter a valid email address.';
     }
-    if (subject.trim().length < 3) next.subject = 'Please enter a brief project subject.';
+    if (!projectType.trim()) next.projectType = 'Please choose a project type.';
     if (message.trim().length < 10) {
-      next.message = 'Please share at least 10 characters about your project or inquiry.';
+      next.message = 'Please share at least 10 characters about your project or goals.';
     }
     return next;
   };
@@ -44,9 +80,9 @@ export default function Contact() {
   };
 
   const mailtoHref = `mailto:${CONTACT_CONFIG.email}?subject=${encodeURIComponent(
-    subject.trim() || 'Project Inquiry — Farhad Ali Portfolio'
+    `${projectType} — Inquiry from ${name.trim() || 'Portfolio Visitor'}`
   )}&body=${encodeURIComponent(
-    `Name: ${name.trim()}\nEmail: ${email.trim()}\n\n${message.trim()}`
+    `Name: ${name.trim()}\nEmail: ${email.trim()}\nProject Type: ${projectType}\n\n${message.trim()}`
   )}`;
 
   const handleSubmit = async (e: FormEvent) => {
@@ -58,7 +94,7 @@ export default function Contact() {
     if (!CONTACT_CONFIG.formEndpoint) {
       setSubmitState('draft_ready');
       setSubmitFeedback(
-        'Your inquiry is validated and ready. Launching your default email client—or click Open Email Draft below.'
+        'Your inquiry is ready. Opening your email client—or click Open Email Draft below.'
       );
       window.location.href = mailtoHref;
       return;
@@ -69,14 +105,13 @@ export default function Contact() {
       const response = await fetch(CONTACT_CONFIG.formEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ name, email, subject, message }),
+        body: JSON.stringify({ name, email, projectType, message }),
       });
       if (!response.ok) throw new Error('Submission failed');
       setSubmitState('success');
       setSubmitFeedback('Your message has been delivered. Thank you for reaching out.');
       setName('');
       setEmail('');
-      setSubject('');
       setMessage('');
     } catch {
       setSubmitState('error');
@@ -84,16 +119,17 @@ export default function Contact() {
     }
   };
 
-  const activeSocials = CONTACT_CONFIG.socialLinks.filter(
-    (item) => Boolean(item.href) && !item.isPlaceholder
-  );
-  const activeChannels = CONTACT_CONFIG.channelLinks.filter(
-    (item) => Boolean(item.href) && !item.isPlaceholder
-  );
+  const verifiedLinks = [
+    ...CONTACT_CONFIG.socialLinks.filter((item) => Boolean(item.href) && !item.isPlaceholder),
+    ...CONTACT_CONFIG.channelLinks.filter((item) => Boolean(item.href) && !item.isPlaceholder),
+  ];
 
   return (
-    <section id="contact" className="py-16 lg:py-24 bg-[#F8FAFC] border-b border-slate-200/80 relative">
-      {/* Subtle Toast Confirmation on Email Copy */}
+    <section
+      id="contact"
+      className="py-24 lg:py-32 bg-[#F8FAFC] border-b border-slate-200/80 relative"
+    >
+      {/* Toast Confirmation on Email Copy */}
       {copiedEmail && (
         <div
           role="status"
@@ -101,47 +137,47 @@ export default function Contact() {
           className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2 rounded-xl bg-[#0F172A] text-white px-4 py-2.5 text-xs font-medium shadow-[0_18px_36px_-10px_rgba(15,23,42,0.4)]"
         >
           <Check className="w-4 h-4 text-[#60A5FA]" />
-          <span>Copied {CONTACT_CONFIG.email} to clipboard</span>
+          <span>Copied! {CONTACT_CONFIG.email}</span>
         </div>
       )}
 
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-        <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div className="mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-3">
-              Contact &amp; Collaboration
+              Contact Studio
             </p>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-[#0F172A] text-balance">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-semibold tracking-tight text-[#0F172A] text-balance leading-[1.08]">
               {CONTACT_CONFIG.headline}
             </h2>
           </div>
-          <p className="text-sm sm:text-base text-slate-600 max-w-[48ch]">
+          <p className="text-sm sm:text-base text-[#475569] max-w-[46ch] leading-relaxed">
             {CONTACT_CONFIG.supportingText}
           </p>
         </div>
 
-        {/* Two-Column 3D Contact Studio Capsule */}
+        {/* Two-Column Contact Studio */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          {/* Left Column: Direct Email Copy + Verified Profiles & Channels */}
-          <div className="lg:col-span-5 flex flex-col gap-5">
+          {/* Left Column: Availability, One-Click Email Copy, & Verified Icon Links */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
             <TiltCard3D
               maxTilt={4}
               liftZ={8}
-              className="rounded-2xl bg-white border border-slate-200/90 studio-card-shadow p-6"
+              className="rounded-2xl bg-white border border-slate-200/90 studio-card-shadow p-7 sm:p-8"
             >
-              <div className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-1">
-                Direct Contact
+              <div className="flex items-center gap-2.5 text-xs font-medium text-[#475569] mb-4">
+                <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                <span>{PROFILE.availability.label} · PK / Remote</span>
               </div>
-              <p className="text-xs text-slate-500 mb-4">
-                {PROFILE.availability.label} · {PROFILE.locationLine}
-              </p>
 
               <div className="rounded-xl bg-[#F8FAFC] border border-slate-200/90 p-4 flex items-center justify-between gap-3">
                 <div className="min-w-0">
-                  <div className="text-[11px] font-medium text-slate-500">Email</div>
+                  <div className="text-[11px] font-medium text-[#475569]">Direct Email</div>
                   <a
                     href={`mailto:${CONTACT_CONFIG.email}`}
-                    className="text-sm font-semibold text-[#0F172A] hover:text-[#2563EB] truncate block"
+                    className="text-sm font-semibold text-[#0F172A] hover:text-[#2563EB] truncate block mt-0.5"
                   >
                     {CONTACT_CONFIG.email}
                   </a>
@@ -150,16 +186,20 @@ export default function Contact() {
                   type="button"
                   onClick={handleCopyEmail}
                   aria-label="Copy email address"
-                  className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#0F172A] bg-white border border-slate-200 hover:border-[#2563EB] rounded-lg transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]"
+                  className={`inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-lg border transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] ${
+                    copiedEmail
+                      ? 'bg-[#0F172A] text-white border-[#0F172A]'
+                      : 'bg-white text-[#0F172A] border-slate-200 hover:border-[#2563EB]'
+                  }`}
                 >
                   {copiedEmail ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-[#2563EB]" />
-                      Copied
+                      <Check className="w-3.5 h-3.5 text-[#60A5FA]" />
+                      Copied!
                     </>
                   ) : (
                     <>
-                      <Copy className="w-3.5 h-3.5 text-slate-500" />
+                      <Copy className="w-3.5 h-3.5 text-[#475569]" />
                       Copy
                     </>
                   )}
@@ -170,55 +210,39 @@ export default function Contact() {
             <TiltCard3D
               maxTilt={3.5}
               liftZ={6}
-              className="flex-1 rounded-2xl bg-white border border-slate-200/90 studio-card-shadow p-6 space-y-5"
+              className="flex-1 rounded-2xl bg-white border border-slate-200/90 studio-card-shadow p-7 sm:p-8 flex flex-col justify-between"
             >
               <div>
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
-                  Business Social Media
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-[#475569] mb-5">
+                  Verified Channels &amp; Profiles
                 </h3>
-                <ul className="space-y-2 text-xs">
-                  {activeSocials.map((item) => (
-                    <li key={item.id} className="flex items-baseline justify-between gap-3">
-                      <span className="font-semibold text-[#0F172A]">{item.label}</span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {verifiedLinks.map((item) => {
+                    const Icon = getChannelIcon(item.id);
+                    return (
                       <a
+                        key={item.id}
                         href={item.href!}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-[#2563EB] hover:underline truncate"
+                        className="group flex items-center gap-2.5 rounded-xl bg-[#F8FAFC] border border-slate-200/80 px-3.5 py-2.5 text-xs hover:border-[#2563EB]/50 hover:bg-white transition-colors"
                       >
-                        <span>{item.value}</span>
-                        <ExternalLink className="w-3 h-3 shrink-0" />
+                        <Icon className="w-4 h-4 text-[#2563EB] shrink-0" strokeWidth={1.7} />
+                        <div className="min-w-0">
+                          <div className="font-semibold text-[#0F172A] group-hover:text-[#2563EB] truncate">
+                            {item.label.split(' — ')[0]}
+                          </div>
+                          <div className="text-[11px] text-[#475569] truncate">{item.value}</div>
+                        </div>
                       </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="pt-4 border-t border-slate-200/80">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
-                  Channels &amp; Storefronts
-                </h3>
-                <ul className="space-y-2 text-xs">
-                  {activeChannels.map((item) => (
-                    <li key={item.id} className="flex items-baseline justify-between gap-3">
-                      <span className="font-semibold text-[#0F172A]">{item.label}</span>
-                      <a
-                        href={item.href!}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-[#2563EB] hover:underline truncate"
-                      >
-                        <span>{item.value}</span>
-                        <ExternalLink className="w-3 h-3 shrink-0" />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                    );
+                  })}
+                </div>
               </div>
             </TiltCard3D>
           </div>
 
-          {/* Right Column: Validated Inquiry Form (Launches Pre-Filled Email Draft) */}
+          {/* Right Column: Clean Modern Inquiry Form */}
           <div className="lg:col-span-7">
             <TiltCard3D
               maxTilt={3}
@@ -228,23 +252,14 @@ export default function Contact() {
               <form
                 onSubmit={handleSubmit}
                 noValidate
-                className="h-full p-6 sm:p-8 flex flex-col justify-between space-y-5"
+                className="h-full p-7 sm:p-9 flex flex-col justify-between space-y-6"
               >
                 <div className="space-y-5">
-                  <div className="pb-4 border-b border-slate-200/80 flex flex-wrap items-center justify-between gap-2">
-                    <h3 className="font-display text-lg font-bold text-[#0F172A]">
-                      Project Inquiry Studio
-                    </h3>
-                    <span className="font-mono-tabular text-xs text-slate-500">
-                      Direct Email Launch
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                       <label
                         htmlFor="contact-name"
-                        className="block text-xs font-semibold text-[#0F172A] mb-1.5"
+                        className="block text-xs font-semibold text-[#0F172A] mb-2"
                       >
                         Name
                       </label>
@@ -254,15 +269,15 @@ export default function Contact() {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Your full name"
-                        className="w-full px-3.5 py-2.5 text-sm bg-[#F8FAFC] border border-slate-200 rounded-xl text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] focus:bg-white transition-colors"
+                        className="w-full px-4 py-3 text-sm bg-[#F8FAFC] border border-slate-200 rounded-xl text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] focus:bg-white transition-colors"
                       />
-                      {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}
+                      {errors.name && <p className="mt-1.5 text-xs text-red-600">{errors.name}</p>}
                     </div>
 
                     <div>
                       <label
                         htmlFor="contact-email"
-                        className="block text-xs font-semibold text-[#0F172A] mb-1.5"
+                        className="block text-xs font-semibold text-[#0F172A] mb-2"
                       >
                         Email
                       </label>
@@ -272,36 +287,42 @@ export default function Contact() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="you@company.com"
-                        className="w-full px-3.5 py-2.5 text-sm bg-[#F8FAFC] border border-slate-200 rounded-xl text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] focus:bg-white transition-colors"
+                        className="w-full px-4 py-3 text-sm bg-[#F8FAFC] border border-slate-200 rounded-xl text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] focus:bg-white transition-colors"
                       />
-                      {errors.email && <p className="mt-1 text-xs text-red-600">{errors.email}</p>}
+                      {errors.email && (
+                        <p className="mt-1.5 text-xs text-red-600">{errors.email}</p>
+                      )}
                     </div>
                   </div>
 
                   <div>
                     <label
-                      htmlFor="contact-subject"
-                      className="block text-xs font-semibold text-[#0F172A] mb-1.5"
+                      htmlFor="contact-project-type"
+                      className="block text-xs font-semibold text-[#0F172A] mb-2"
                     >
-                      Subject
+                      Project Type
                     </label>
-                    <input
-                      id="contact-subject"
-                      type="text"
-                      value={subject}
-                      onChange={(e) => setSubject(e.target.value)}
-                      placeholder="e.g., Short-form video production or YouTube channel strategy"
-                      className="w-full px-3.5 py-2.5 text-sm bg-[#F8FAFC] border border-slate-200 rounded-xl text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] focus:bg-white transition-colors"
-                    />
-                    {errors.subject && (
-                      <p className="mt-1 text-xs text-red-600">{errors.subject}</p>
+                    <select
+                      id="contact-project-type"
+                      value={projectType}
+                      onChange={(e) => setProjectType(e.target.value)}
+                      className="w-full px-4 py-3 text-sm bg-[#F8FAFC] border border-slate-200 rounded-xl text-[#0F172A] focus:outline-none focus:border-[#2563EB] focus:bg-white transition-colors"
+                    >
+                      {PROJECT_TYPES.map((type) => (
+                        <option key={type} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.projectType && (
+                      <p className="mt-1.5 text-xs text-red-600">{errors.projectType}</p>
                     )}
                   </div>
 
                   <div>
                     <label
                       htmlFor="contact-message"
-                      className="block text-xs font-semibold text-[#0F172A] mb-1.5"
+                      className="block text-xs font-semibold text-[#0F172A] mb-2"
                     >
                       Message
                     </label>
@@ -310,11 +331,11 @@ export default function Contact() {
                       rows={5}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      placeholder="Share project goals, platforms, timeline, or collaboration details..."
-                      className="w-full px-3.5 py-2.5 text-sm bg-[#F8FAFC] border border-slate-200 rounded-xl text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] focus:bg-white resize-y transition-colors"
+                      placeholder="Share your channel goals, creative scope, timeline, or collaboration details..."
+                      className="w-full px-4 py-3 text-sm bg-[#F8FAFC] border border-slate-200 rounded-xl text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] focus:bg-white resize-y transition-colors"
                     />
                     {errors.message && (
-                      <p className="mt-1 text-xs text-red-600">{errors.message}</p>
+                      <p className="mt-1.5 text-xs text-red-600">{errors.message}</p>
                     )}
                   </div>
 
@@ -359,19 +380,17 @@ export default function Contact() {
                   )}
                 </div>
 
-                <div className="pt-2 flex flex-wrap items-center justify-between gap-4">
+                <div className="pt-2">
                   <button
                     type="submit"
                     disabled={submitState === 'submitting'}
-                    className="inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] rounded-xl shadow-[0_12px_24px_-10px_rgba(37,99,235,0.55)] hover:-translate-y-0.5 transition-all duration-150 disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]"
+                    className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-[#0F172A] hover:bg-[#2563EB] rounded-full shadow-[0_14px_28px_-10px_rgba(15,23,42,0.4)] hover:-translate-y-0.5 transition-all duration-150 disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]"
                   >
-                    <Send className="w-4 h-4" />
-                    {submitState === 'submitting' ? 'Preparing...' : 'Prepare Email Inquiry'}
+                    <span>
+                      {submitState === 'submitting' ? 'Preparing...' : 'Send Project Inquiry'}
+                    </span>
+                    <ArrowRight className="w-4 h-4" />
                   </button>
-
-                  <span className="text-xs text-slate-500">
-                    Direct recipient: {CONTACT_CONFIG.email}
-                  </span>
                 </div>
               </form>
             </TiltCard3D>

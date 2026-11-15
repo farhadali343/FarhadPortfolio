@@ -1,43 +1,39 @@
 import { useState } from 'react';
-import { ArrowDownRight, Box, Camera, Download } from 'lucide-react';
+import { ArrowDownRight, Box, Camera } from 'lucide-react';
 import { motion } from 'motion/react';
-import { PROFILE, getPublicMetrics } from '../data/portfolioData';
+import { PROFILE } from '../data/portfolioData';
 import TiltCard3D from './TiltCard3D';
 import AnimatedCounter from './AnimatedCounter';
 
-interface HeroProps {
-  onDownloadResume: () => void;
-  isGeneratingPdf: boolean;
-}
+const HERO_IMPACT_METRICS = [
+  {
+    id: 'yt-views',
+    value: '118K+',
+    title: 'YouTube Channel Views',
+    context: 'The POV Narrative',
+  },
+  {
+    id: 'peak-reach',
+    value: '68K',
+    title: 'Peak Single-Video Reach',
+    context: 'Viral Storytelling',
+  },
+  {
+    id: 'videos-shipped',
+    value: '120+',
+    title: 'Produced & Published Videos',
+    context: 'Long & Short-Form',
+  },
+  {
+    id: 'editorial-articles',
+    value: '80+',
+    title: 'Published Editorial Articles',
+    context: 'Medium & SEO',
+  },
+] as const;
 
-function IsometricMetricBadge({ index }: { index: number }) {
-  const isBrass = index % 2 === 1;
-  const accent = isBrass ? '#C28E36' : '#2563EB';
-  const softFill = isBrass ? 'rgba(194, 142, 54, 0.14)' : 'rgba(37, 99, 235, 0.12)';
-
-  return (
-    <svg
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
-      fill="none"
-      aria-hidden="true"
-      className="shrink-0"
-    >
-      <path
-        d="M16 3L28 9.5V22.5L16 29L4 22.5V9.5L16 3Z"
-        fill={softFill}
-        stroke={accent}
-        strokeWidth="1.4"
-      />
-      <path d="M16 15.5L28 9.5M16 15.5L4 9.5M16 15.5V29" stroke={accent} strokeWidth="1.2" opacity="0.65" />
-    </svg>
-  );
-}
-
-export default function Hero({ onDownloadResume, isGeneratingPdf }: HeroProps) {
+export default function Hero() {
   const [portraitError, setPortraitError] = useState(false);
-  const verifiedMetrics = getPublicMetrics();
 
   const scrollToProjects = () => {
     const el = document.getElementById('projects');
@@ -56,111 +52,93 @@ export default function Hero({ onDownloadResume, isGeneratingPdf }: HeroProps) {
       id="home"
       className="relative overflow-hidden border-b border-slate-200/80 bg-gradient-to-b from-[#F8FAFC] via-[#F8FAFC] to-[#F1F5F9]/70"
     >
-      {/* Subtle Ambient Architectural Grid Backdrop */}
+      {/* Subtle Ambient Architectural Backdrop */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.35]"
+        className="pointer-events-none absolute inset-0 opacity-[0.38]"
         style={{
           backgroundImage:
             'radial-gradient(circle at 18% 20%, rgba(37, 99, 235, 0.08), transparent 45%), radial-gradient(circle at 82% 28%, rgba(194, 142, 54, 0.07), transparent 40%)',
         }}
       />
 
-      <div className="relative mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-10 pb-16 lg:pt-16 lg:pb-22">
-        {/* Split 3D Stage */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          {/* Left Column: Editorial Typography & Tactile 3D CTAs */}
+      <div className="relative mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-16 pb-20 lg:pt-24 lg:pb-24">
+        {/* Executive Split 3D Stage */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Left Column: Catchy Editorial Copy & Primary/Secondary Pill CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-7 flex flex-col justify-between"
           >
             <div>
-              {/* Crisp Daylight Studio Availability Badge */}
-              <div className="inline-flex flex-wrap items-center gap-2 rounded-full bg-white border border-slate-200/90 studio-card-shadow px-3.5 py-1.5 text-xs text-slate-600 mb-6">
-                <span className="font-semibold text-[#2563EB]">
-                  Open for Freelance &amp; International Collaborations
+              {/* Top Subtle Status Line */}
+              <div className="flex items-center gap-2.5 text-xs sm:text-sm font-medium text-[#475569] mb-6">
+                <span className="relative flex h-2.5 w-2.5 shrink-0" aria-hidden="true">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
                 </span>
-                <span aria-hidden="true" className="text-slate-300">•</span>
-                <span className="font-mono-tabular text-[#0F172A] font-medium">PK / Global</span>
+                <span>Available for Select Global Projects • PK / Remote</span>
               </div>
 
-              <p className="text-sm sm:text-base font-semibold text-[#2563EB] mb-3">
-                {PROFILE.primaryPositioning}
-              </p>
-
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-[56px] font-bold tracking-tight text-[#0F172A] leading-[1.06] text-balance mb-5">
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-[54px] font-semibold tracking-tight text-[#0F172A] leading-[1.06] text-balance mb-6">
                 {PROFILE.heroHeadline}
               </h1>
 
-              <p className="text-sm sm:text-base font-medium text-slate-700 mb-4">
-                {PROFILE.heroSubheadline}
-              </p>
-
-              <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-[58ch]">
+              <p className="text-base sm:text-lg text-[#475569] leading-relaxed max-w-[56ch]">
                 {PROFILE.heroSupportingText}
               </p>
             </div>
 
-            {/* 3D Tactile Action Buttons */}
-            <div className="mt-8 pt-6 border-t border-slate-200/80 flex flex-wrap items-center gap-3.5">
+            {/* Executive Pill CTAs */}
+            <div className="mt-10 flex flex-wrap items-center gap-4">
               <button
                 type="button"
                 onClick={scrollToProjects}
-                className="inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] rounded-xl shadow-[0_12px_24px_-10px_rgba(37,99,235,0.6)] hover:-translate-y-0.5 transition-all duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-[#0F172A] hover:bg-[#2563EB] rounded-full shadow-[0_16px_32px_-12px_rgba(15,23,42,0.45)] hover:-translate-y-0.5 transition-all duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2"
               >
-                Explore My Work
+                Explore Selected Work
                 <ArrowDownRight className="w-4 h-4" />
               </button>
 
               <button
                 type="button"
                 onClick={scrollToStudio3D}
-                className="inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold text-[#0F172A] bg-white border border-slate-200 hover:border-[#2563EB]/50 rounded-xl studio-card-shadow hover:-translate-y-0.5 transition-all duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold text-[#0F172A] bg-white/80 backdrop-blur-md border border-slate-200/90 hover:border-[#2563EB]/45 rounded-full shadow-[0_12px_28px_-14px_rgba(15,23,42,0.16)] hover:-translate-y-0.5 transition-all duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2"
               >
                 <Box className="w-4 h-4 text-[#2563EB]" />
-                Launch 3D Studio
-              </button>
-
-              <button
-                type="button"
-                onClick={onDownloadResume}
-                disabled={isGeneratingPdf}
-                className="inline-flex items-center gap-2 px-4 py-3 text-sm font-medium text-slate-700 bg-white/80 border border-slate-200 hover:border-slate-400 hover:text-[#0F172A] rounded-xl hover:-translate-y-0.5 transition-all duration-150 whitespace-nowrap shrink-0 disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2"
-              >
-                <Download className="w-4 h-4 text-[#C28E36]" />
-                {isGeneratingPdf ? 'Preparing PDF...' : 'Download CV'}
+                Interactive 3D Studio
               </button>
             </div>
           </motion.div>
 
-          {/* Right Column: Interactive 3D Floating Studio ID Card */}
+          {/* Right Column: Frameless 3D Perspective Glass Portrait Card */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.48, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 perspective-1200 relative"
           >
-            {/* Subtle Ambient Geometric Framing Accents Behind Card */}
+            {/* Soft Studio Rim Lighting Glow Behind Glass Card */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -top-5 -right-4 w-28 h-28 rounded-2xl border border-[#C28E36]/25 bg-gradient-to-br from-[#C28E36]/10 to-transparent -rotate-6"
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -bottom-5 -left-4 w-32 h-32 rounded-2xl border border-[#2563EB]/20 bg-gradient-to-tr from-[#2563EB]/10 to-transparent rotate-6"
+              className="pointer-events-none absolute -inset-4 rounded-[32px] opacity-80 blur-2xl"
+              style={{
+                background:
+                  'radial-gradient(circle at 20% 15%, rgba(37, 99, 235, 0.22), transparent 55%), radial-gradient(circle at 85% 85%, rgba(194, 142, 54, 0.2), transparent 55%)',
+              }}
             />
 
             <TiltCard3D
               maxTilt={8}
-              liftZ={14}
-              className="rounded-2xl bg-white border border-slate-200/90 studio-card-shadow p-4 sm:p-5"
+              liftZ={16}
+              sheenOpacity={0.18}
+              className="relative rounded-[24px] bg-white/45 backdrop-blur-md border border-white/80 shadow-[0_28px_60px_-18px_rgba(15,23,42,0.22),inset_0_1px_0_rgba(255,255,255,0.85)]"
             >
-              {/* Inner Portrait Frame */}
               <div className="relative" style={{ transformStyle: 'preserve-3d' }}>
                 {showPortraitImage && PROFILE.portraitUrl ? (
-                  <div className="relative aspect-[4/4.3] w-full overflow-hidden rounded-xl bg-slate-900 border border-slate-200">
+                  <div className="relative aspect-[4/4.6] w-full overflow-hidden rounded-[23px] bg-slate-900">
                     <img
                       src={PROFILE.portraitUrl}
                       alt={PROFILE.portraitAlt}
@@ -168,9 +146,13 @@ export default function Hero({ onDownloadResume, isGeneratingPdf }: HeroProps) {
                       onError={() => setPortraitError(true)}
                       className="w-full h-full object-cover object-top"
                     />
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-0 rounded-[23px] ring-1 ring-inset ring-white/40"
+                    />
                   </div>
                 ) : (
-                  <div className="aspect-[4/4.3] flex flex-col items-center justify-center text-center bg-slate-50 border border-dashed border-slate-300 rounded-xl px-6 py-10">
+                  <div className="aspect-[4/4.6] flex flex-col items-center justify-center text-center bg-slate-50 rounded-[23px] px-6 py-10">
                     <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center mb-3">
                       <Camera className="w-5 h-5 text-slate-500" />
                     </div>
@@ -180,98 +162,51 @@ export default function Hero({ onDownloadResume, isGeneratingPdf }: HeroProps) {
                   </div>
                 )}
 
-                {/* Layered 3D Depth Badges Floating Over Frame */}
+                {/* Minimal Floating Corner Glass Metric 1 */}
                 <div
-                  className="hidden sm:flex items-center gap-2 rounded-xl bg-white/95 border border-slate-200/90 shadow-[0_14px_28px_-10px_rgba(15,23,42,0.2)] px-3 py-2 absolute -left-4 top-6"
-                  style={{ transform: 'translateZ(28px)' }}
+                  className="flex items-center gap-2.5 rounded-2xl bg-white/88 backdrop-blur-md border border-white/90 shadow-[0_16px_32px_-10px_rgba(15,23,42,0.22)] px-3.5 py-2.5 absolute left-3 sm:-left-5 top-4 sm:top-6"
+                  style={{ transform: 'translateZ(30px)' }}
                 >
-                  <span className="w-2 h-2 rounded-sm bg-[#2563EB]" aria-hidden="true" />
+                  <span className="w-2 h-2 rounded-full bg-[#2563EB] shrink-0" aria-hidden="true" />
                   <span className="font-mono-tabular text-xs font-semibold text-[#0F172A] whitespace-nowrap">
-                    120+ Videos
+                    118K+ Organic Views
                   </span>
                 </div>
 
+                {/* Minimal Floating Corner Glass Metric 2 */}
                 <div
-                  className="hidden sm:flex items-center gap-2 rounded-xl bg-white/95 border border-slate-200/90 shadow-[0_14px_28px_-10px_rgba(15,23,42,0.2)] px-3 py-2 absolute -right-4 top-20"
+                  className="flex items-center gap-2.5 rounded-2xl bg-white/88 backdrop-blur-md border border-white/90 shadow-[0_16px_32px_-10px_rgba(15,23,42,0.22)] px-3.5 py-2.5 absolute right-3 sm:-right-5 bottom-4 sm:bottom-6"
                   style={{ transform: 'translateZ(34px)' }}
                 >
-                  <span className="w-2 h-2 rounded-sm bg-[#C28E36]" aria-hidden="true" />
+                  <span className="w-2 h-2 rounded-full bg-[#C28E36] shrink-0" aria-hidden="true" />
                   <span className="font-mono-tabular text-xs font-semibold text-[#0F172A] whitespace-nowrap">
-                    118K+ Views
+                    120+ Videos Shipped
                   </span>
                 </div>
-
-                <div
-                  className="hidden sm:flex items-center gap-2 rounded-xl bg-[#0F172A] text-white border border-slate-800 shadow-[0_14px_28px_-10px_rgba(15,23,42,0.35)] px-3 py-2 absolute -left-3 bottom-5"
-                  style={{ transform: 'translateZ(32px)' }}
-                >
-                  <span className="font-mono-tabular text-[11px] font-semibold tracking-wide text-[#93C5FD] whitespace-nowrap">
-                    AI Systems
-                  </span>
-                </div>
-              </div>
-
-              {/* Studio ID Card Footer */}
-              <div className="pt-4 mt-4 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-600">
-                <div>
-                  <span className="font-semibold text-[#0F172A]">{PROFILE.name}</span>
-                  <span className="mx-1.5 text-slate-300">·</span>
-                  <span>Creative Direction</span>
-                </div>
-                <span className="font-mono-tabular font-semibold text-[#2563EB]">STUDIO ID · 01</span>
               </div>
             </TiltCard3D>
           </motion.div>
         </div>
 
-        {/* Verified Audit Highlights — 3D Bento Grid */}
-        <div className="mt-14 pt-10 border-t border-slate-200/80">
-          <div className="flex flex-wrap items-baseline justify-between gap-2 mb-6">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-1">
-                Verified Audit Highlights
-              </p>
-              <h2 className="font-display text-xl sm:text-2xl font-bold text-[#0F172A]">
-                Measured output across channels, publishing, and pins
-              </h2>
-            </div>
-            <p className="text-xs text-slate-500">
-              Account-specific historical snapshots with audit dates
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4">
-            {verifiedMetrics.map((metric, idx) => {
-              const bentoSpan = idx < 2 ? 'lg:col-span-6' : 'lg:col-span-3';
-
-              return (
-                <TiltCard3D
-                  key={metric.id}
-                  maxTilt={5}
-                  liftZ={8}
-                  className={`${bentoSpan} rounded-2xl bg-white border border-slate-200/90 studio-card-shadow p-5 flex flex-col justify-between`}
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <div className="text-3xl sm:text-[34px] font-bold text-[#0F172A] tracking-tight leading-none">
-                        <AnimatedCounter value={metric.value} />
-                      </div>
-                      <div className="mt-2 text-sm font-semibold text-[#0F172A]">
-                        {metric.label}
-                      </div>
-                    </div>
-                    <IsometricMetricBadge index={idx} />
-                  </div>
-
-                  <div className="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs">
-                    <span className="font-medium text-slate-600">{metric.project}</span>
-                    <span className="inline-flex items-center rounded-full bg-slate-100 border border-slate-200/80 px-2.5 py-0.5 font-mono-tabular text-[11px] font-medium text-slate-600">
-                      {metric.auditDate}
-                    </span>
-                  </div>
-                </TiltCard3D>
-              );
-            })}
+        {/* Clean 4-Column Architectural Impact Metrics Bar */}
+        <div className="mt-20 pt-14 border-t border-slate-200/80">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {HERO_IMPACT_METRICS.map((item) => (
+              <TiltCard3D
+                key={item.id}
+                maxTilt={4.5}
+                liftZ={8}
+                className="rounded-2xl bg-white border border-slate-200/90 studio-card-shadow p-7 sm:p-8 flex flex-col justify-between"
+              >
+                <div className="text-4xl sm:text-[42px] font-semibold text-[#0F172A] tracking-tight leading-none">
+                  <AnimatedCounter value={item.value} />
+                </div>
+                <div className="mt-4">
+                  <div className="text-sm font-semibold text-[#0F172A]">{item.title}</div>
+                  <div className="mt-1 text-xs font-medium text-[#475569]">{item.context}</div>
+                </div>
+              </TiltCard3D>
+            ))}
           </div>
         </div>
       </div>

@@ -42,21 +42,20 @@ export default function ResumeSection({
   );
 
   return (
-    <section id="resume" className="py-16 lg:py-24 border-b border-slate-200/80 bg-white">
+    <section id="resume" className="py-24 lg:py-32 border-b border-slate-200/80 bg-white">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
           {/* Left Control & Summary Column (Hidden on Print) */}
           <div className="no-print lg:col-span-5 lg:sticky lg:top-24">
             <p className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-3">
               Resume / Curriculum Vitae
             </p>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-[#0F172A] text-balance">
+            <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-[#0F172A] text-balance">
               Interactive A4 CV preview &amp; ATS-ready PDF export.
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
+            <p className="mt-4 text-sm sm:text-base text-[#475569] leading-relaxed">
               Inspect a compact Executive Summary or browse the full formatted A4 Curriculum Vitae
-              directly inside the interactive paper deck, then export a selectable-text PDF or
-              print cleanly.
+              inside the paper deck, then export a clean selectable-text PDF or print.
             </p>
 
             {/* View Toggle */}
@@ -103,7 +102,7 @@ export default function ResumeSection({
                 className="inline-flex items-center gap-2 px-5 py-3 text-xs sm:text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] rounded-xl shadow-[0_12px_24px_-10px_rgba(37,99,235,0.55)] hover:-translate-y-0.5 transition-all duration-150 whitespace-nowrap shrink-0 disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]"
               >
                 <Download className="w-4 h-4" />
-                {isGeneratingPdf ? 'Generating PDF...' : 'Download PDF'}
+                {isGeneratingPdf ? 'Generating PDF...' : 'Download ATS PDF'}
               </button>
 
               <button
@@ -127,15 +126,17 @@ export default function ResumeSection({
 
             {/* Quick Document Highlights */}
             <div className="mt-8 pt-6 border-t border-slate-200/80 grid grid-cols-2 gap-4 text-xs">
-              <div className="rounded-xl bg-[#F8FAFC] border border-slate-200/80 p-3.5">
-                <div className="font-mono-tabular font-bold text-base text-[#0F172A]">A4 Portrait</div>
-                <div className="mt-0.5 text-slate-500">Selectable ATS text PDF</div>
+              <div className="rounded-xl bg-[#F8FAFC] border border-slate-200/80 p-4">
+                <div className="font-mono-tabular font-semibold text-base text-[#0F172A]">
+                  A4 Portrait
+                </div>
+                <div className="mt-0.5 text-[#475569]">Selectable ATS text PDF</div>
               </div>
-              <div className="rounded-xl bg-[#F8FAFC] border border-slate-200/80 p-3.5">
-                <div className="font-mono-tabular font-bold text-base text-[#0F172A]">
+              <div className="rounded-xl bg-[#F8FAFC] border border-slate-200/80 p-4">
+                <div className="font-mono-tabular font-semibold text-base text-[#0F172A]">
                   {experiences.length} Roles · {projects.length} Cases
                 </div>
-                <div className="mt-0.5 text-slate-500">Synchronized with live data</div>
+                <div className="mt-0.5 text-[#475569]">Complete career &amp; channel overview</div>
               </div>
             </div>
           </div>
@@ -168,10 +169,10 @@ export default function ResumeSection({
               {/* Scrollable Interactive Sheet (Full height on print) */}
               <article
                 aria-label="Farhad Ali Curriculum Vitae"
-                className="print-only-resume max-h-[580px] overflow-y-auto print:max-h-none print:overflow-visible p-6 sm:p-9"
+                className="print-only-resume max-h-[600px] overflow-y-auto print:max-h-none print:overflow-visible p-7 sm:p-10"
               >
                 {/* 1. Header */}
-                <header className="pb-6 border-b border-slate-200">
+                <header className="pb-7 border-b border-slate-200">
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                     <div>
                       <h3 className="font-display text-2xl font-bold tracking-tight text-[#0F172A]">
@@ -243,21 +244,21 @@ export default function ResumeSection({
                 </header>
 
                 {/* 2. Professional Summary */}
-                <section className="py-5 border-b border-slate-200 print-avoid-break">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-2.5">
+                <section className="py-6 border-b border-slate-200 print-avoid-break">
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-3">
                     Professional Summary
                   </h4>
-                  <div className="space-y-2 text-xs sm:text-[13px] text-slate-700 leading-relaxed">
+                  <div className="space-y-2.5 text-xs sm:text-[13px] text-[#475569] leading-relaxed">
                     {PROFILE.aboutSummary.map((paragraph, idx) => (
                       <p key={idx}>{paragraph}</p>
                     ))}
                   </div>
                 </section>
 
-                {/* 3. Verified Highlights */}
-                <section className="py-5 border-b border-slate-200 print-avoid-break">
+                {/* 3. Selected Outcomes */}
+                <section className="py-6 border-b border-slate-200 print-avoid-break">
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-3">
-                    Verified Audit Highlights
+                    Selected Outcomes
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5">
                     {metrics.map((metric) => (
@@ -280,11 +281,11 @@ export default function ResumeSection({
                 </section>
 
                 {/* 4. Independent Projects & Ventures */}
-                <section className="py-5 border-b border-slate-200">
+                <section className="py-6 border-b border-slate-200">
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-4">
                     Independent Projects &amp; Digital Ventures
                   </h4>
-                  <div className="space-y-4">
+                  <div className="space-y-5">
                     {(viewMode === 'compact' ? experiences.slice(0, 4) : experiences).map(
                       (exp) => (
                         <div key={exp.id} className="print-avoid-break">
@@ -298,9 +299,9 @@ export default function ResumeSection({
                           </div>
                           <div className="mt-0.5 text-[11px] font-semibold text-[#2563EB]">
                             {exp.projectGroup}
-                            <span className="text-slate-500 font-normal">
+                            <span className="text-[#475569] font-normal">
                               {' '}
-                              · {exp.engagementType} · {exp.platforms}
+                              · {exp.platforms}
                             </span>
                           </div>
                           <ul className="mt-1.5 space-y-1 text-xs text-slate-600 leading-relaxed">
@@ -332,17 +333,9 @@ export default function ResumeSection({
                       {EXPERTISE_CATEGORIES.map((cat) => (
                         <div key={cat.id} className="print-avoid-break">
                           <h5 className="text-xs font-bold text-[#0F172A] mb-1">{cat.title}</h5>
-                          <ul className="space-y-0.5 text-[11px] text-slate-600">
+                          <ul className="space-y-1 text-[11px] text-[#475569]">
                             {cat.skills.map((skill) => (
-                              <li
-                                key={skill.name}
-                                className="flex items-baseline justify-between gap-2"
-                              >
-                                <span>{skill.name}</span>
-                                <span className="text-[10px] text-slate-400 shrink-0">
-                                  {skill.attribution}
-                                </span>
-                              </li>
+                              <li key={skill.name}>{skill.name}</li>
                             ))}
                           </ul>
                         </div>

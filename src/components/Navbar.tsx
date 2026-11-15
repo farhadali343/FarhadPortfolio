@@ -5,10 +5,10 @@ import { PROFILE } from '../data/portfolioData';
 
 const SECTION_IDS = [
   'home',
+  'studio-3d',
   'about',
   'expertise',
   'experience',
-  'studio-3d',
   'projects',
   'resume',
   'contact',
@@ -16,23 +16,12 @@ const SECTION_IDS = [
 
 type SectionId = (typeof SECTION_IDS)[number];
 
-const DESKTOP_NAV_LINKS: { id: SectionId; label: string }[] = [
-  { id: 'about', label: 'About' },
-  { id: 'expertise', label: 'Expertise' },
+const NAV_LINKS: { id: SectionId; label: string }[] = [
+  { id: 'projects', label: 'Work' },
   { id: 'studio-3d', label: '3D Studio' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'resume', label: 'Resume' },
-];
-
-const MOBILE_NAV_LINKS: { id: SectionId; label: string }[] = [
-  { id: 'home', label: 'Home' },
+  { id: 'expertise', label: 'Capabilities' },
   { id: 'about', label: 'About' },
-  { id: 'expertise', label: 'Expertise' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'studio-3d', label: '3D Studio' },
-  { id: 'projects', label: 'Projects' },
   { id: 'resume', label: 'Resume' },
-  { id: 'contact', label: 'Contact' },
 ];
 
 export default function Navbar() {
@@ -129,14 +118,15 @@ export default function Navbar() {
     }
   };
 
-  // Map 'experience' scroll position gently to nearest nav item or keep clear when on Experience
-  const effectiveDesktopActive = activeSection;
+  // Map Experience scroll zone cleanly to Capabilities when scrolling between About & 3D Studio
+  const highlightedNavSection: SectionId =
+    activeSection === 'experience' ? 'expertise' : activeSection;
   const isContactActive = activeSection === 'contact';
 
   return (
-    <header className="no-print sticky top-3 z-40 w-full px-3 sm:px-6 pointer-events-none">
-      <div className="pointer-events-auto mx-auto max-w-5xl rounded-full bg-white/80 backdrop-blur-md border border-slate-200/90 shadow-[0_16px_38px_-14px_rgba(15,23,42,0.14)] px-4 sm:px-5 h-14 flex items-center justify-between gap-6">
-        {/* Zone 1: Single-line Wordmark */}
+    <header className="no-print sticky top-3.5 z-40 w-full px-3 sm:px-6 pointer-events-none">
+      <div className="pointer-events-auto mx-auto max-w-5xl rounded-full bg-white/80 backdrop-blur-md border border-slate-200/90 shadow-[0_16px_38px_-14px_rgba(15,23,42,0.12)] px-4 sm:px-5 h-14 flex items-center justify-between gap-6">
+        {/* Wordmark */}
         <a
           href="#home"
           onClick={(e) => {
@@ -144,16 +134,16 @@ export default function Navbar() {
             scrollToSection('home');
           }}
           aria-current={activeSection === 'home' ? 'page' : undefined}
-          className="font-display text-sm sm:text-base font-bold tracking-tight text-[#0F172A] whitespace-nowrap shrink-0 pl-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded-full"
+          className="font-display text-sm sm:text-[15px] font-semibold tracking-tight text-[#0F172A] whitespace-nowrap shrink-0 pl-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded-full"
         >
           {PROFILE.wordmark}
         </a>
 
-        {/* Zone 2: Floating Glass Scroll-Spy Links with Active Pill Indicator */}
+        {/* 5 Clean Navigation Links with Scroll-Spy Active Pill */}
         <LayoutGroup id="floating-glass-nav">
-          <nav aria-label="Primary Navigation" className="hidden md:flex items-center gap-1.5">
-            {DESKTOP_NAV_LINKS.map((item) => {
-              const isActive = effectiveDesktopActive === item.id;
+          <nav aria-label="Primary Navigation" className="hidden md:flex items-center gap-1">
+            {NAV_LINKS.map((item) => {
+              const isActive = highlightedNavSection === item.id;
               return (
                 <a
                   key={item.id}
@@ -163,8 +153,8 @@ export default function Navbar() {
                     scrollToSection(item.id);
                   }}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`relative px-3.5 py-1.5 text-xs sm:text-sm font-medium rounded-full transition-colors duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] ${
-                    isActive ? 'text-[#2563EB]' : 'text-slate-600 hover:text-[#0F172A]'
+                  className={`relative px-3.5 py-1.5 text-xs sm:text-[13px] font-medium rounded-full transition-colors duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] ${
+                    isActive ? 'text-[#2563EB]' : 'text-[#475569] hover:text-[#0F172A]'
                   }`}
                 >
                   {isActive && (
@@ -182,7 +172,7 @@ export default function Navbar() {
           </nav>
         </LayoutGroup>
 
-        {/* Zone 3: Primary CTA + Mobile Trigger */}
+        {/* High-Contrast Pill CTA + Mobile Trigger */}
         <div className="flex items-center gap-2 shrink-0">
           <a
             href="#contact"
@@ -191,13 +181,13 @@ export default function Navbar() {
               scrollToSection('contact');
             }}
             aria-current={isContactActive ? 'page' : undefined}
-            className={`inline-flex items-center justify-center px-4 py-1.5 text-xs sm:text-sm font-medium text-white rounded-full transition-all duration-150 whitespace-nowrap shrink-0 shadow-[0_6px_16px_-6px_rgba(37,99,235,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2 ${
+            className={`inline-flex items-center justify-center px-4 py-2 text-xs sm:text-[13px] font-semibold text-white rounded-full transition-all duration-150 whitespace-nowrap shrink-0 shadow-[0_8px_20px_-6px_rgba(15,23,42,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2 ${
               isContactActive
                 ? 'bg-[#2563EB]'
                 : 'bg-[#0F172A] hover:bg-[#2563EB]'
             }`}
           >
-            Let&apos;s Talk
+            Start a Project
           </a>
 
           <button
@@ -220,8 +210,8 @@ export default function Navbar() {
           className="pointer-events-auto md:hidden mt-2 mx-auto max-w-5xl rounded-2xl border border-slate-200/90 bg-white/95 backdrop-blur-md shadow-[0_20px_40px_-15px_rgba(15,23,42,0.16)] px-3 py-3"
         >
           <nav aria-label="Mobile Navigation" className="grid grid-cols-2 gap-1">
-            {MOBILE_NAV_LINKS.map((item) => {
-              const isActive = activeSection === item.id;
+            {NAV_LINKS.map((item) => {
+              const isActive = highlightedNavSection === item.id;
               return (
                 <a
                   key={item.id}
@@ -241,6 +231,21 @@ export default function Navbar() {
                 </a>
               );
             })}
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection('contact');
+              }}
+              aria-current={isContactActive ? 'page' : undefined}
+              className={`px-3 py-2.5 text-xs font-semibold rounded-xl transition-colors whitespace-nowrap ${
+                isContactActive
+                  ? 'text-white bg-[#2563EB]'
+                  : 'text-[#0F172A] hover:bg-slate-100'
+              }`}
+            >
+              Start a Project
+            </a>
           </nav>
         </div>
       )}

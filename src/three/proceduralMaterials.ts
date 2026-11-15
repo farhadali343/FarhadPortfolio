@@ -126,11 +126,11 @@ export function createStudioTimelineTexture(maxAnisotropy = 4): THREE.CanvasText
 
     // Header labels
     ctx.fillStyle = '#e2e8f0';
-    ctx.font = 'bold 15px monospace';
-    ctx.fillText('FARHAD STUDIO // PRODUCTION TIMELINE', 24, 27);
+    ctx.font = 'bold 15px sans-serif';
+    ctx.fillText('FARHAD STUDIO', 24, 27);
     ctx.fillStyle = '#60a5fa';
-    ctx.font = '600 14px monospace';
-    ctx.fillText('TC 00:02:14:08   24.00 FPS   4K HDR', 690, 27);
+    ctx.font = '600 13px sans-serif';
+    ctx.fillText('PRODUCTION TIMELINE  ·  4K MASTER', 720, 27);
 
     // Left inspector panel
     ctx.fillStyle = '#111620';
@@ -203,8 +203,8 @@ export function createStudioTimelineTexture(maxAnisotropy = 4): THREE.CanvasText
     ctx.strokeRect(780, 58, 226, 250);
 
     ctx.fillStyle = '#94a3b8';
-    ctx.font = '600 11px monospace';
-    ctx.fillText('LUMA / CHROMA SCOPE', 796, 80);
+    ctx.font = '600 11px sans-serif';
+    ctx.fillText('COLOR & AUDIO BALANCE', 796, 80);
 
     for (let i = 0; i < 42; i++) {
       const bx = 796 + i * 4.7;

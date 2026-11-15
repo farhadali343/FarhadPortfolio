@@ -21,14 +21,14 @@ export interface DisciplineMeta {
 export const STUDIO_DISCIPLINES: Record<DisciplineId, DisciplineMeta> = {
   'production-rig': {
     id: 'production-rig',
-    title: 'AI & Cinema Production Rig',
+    title: 'Creative & Cinema Production Rig',
     shortLabel: 'Workstation',
-    category: 'Core Creative Workstation',
+    category: 'Core Studio Workstation',
     summary:
-      'Central creative pipeline uniting script drafting, AI-assisted visual synthesis, multi-track video editing, and final color grading.',
+      'Central creative pipeline uniting script drafting, visual synthesis, multi-track video editing, and final color grading.',
     highlights: [
       'Multi-track hook, pacing, and audio synchronization',
-      'Directed AI imagery and voice workflows with manual QA',
+      'Directed imagery and voice workflows with manual editorial review',
     ],
     reference: 'The POV Narrative · WhatTheByte · Ford Invests',
   },
@@ -38,49 +38,49 @@ export const STUDIO_DISCIPLINES: Record<DisciplineId, DisciplineMeta> = {
     shortLabel: 'Video & Motion',
     category: 'Short & Long-Form Production',
     summary:
-      'Retention-paced editing, hook architecture, 3D motion framing, and cross-platform vertical/widescreen visual workflows.',
+      'Retention-paced editing, hook architecture, 3D motion framing, and cross-platform vertical and widescreen video systems.',
     highlights: [
-      '12 published Reels tracked in the 1–14 Nov 2026 sprint',
-      '5+ verified short-form quiz & educational video formats',
+      'Consistent Reels & Shorts batches across dedicated channels',
+      '5+ short-form quiz & educational video formats',
     ],
     reference: 'Remotion · FFmpeg · Python-Assisted Workflows',
   },
   'narrative-youtube': {
     id: 'narrative-youtube',
-    title: 'YouTube & Narrative Channels',
-    shortLabel: 'YouTube Channels',
+    title: 'YouTube Strategy & Channels',
+    shortLabel: 'YouTube Strategy',
     category: 'Multi-Channel Publishing',
     summary:
-      'End-to-end packaging, thumbnail hierarchy, voiceover pacing, and audience retention systems for global channels.',
+      'End-to-end channel packaging, thumbnail hierarchy, voiceover pacing, and retention architecture for global audiences.',
     highlights: [
-      '120 published videos & 118,142 channel views (Oct 2026 audit)',
-      '~68K peak views on top investigative upload',
+      '120+ published videos & 118K+ cumulative channel views',
+      '68K peak single-video reach on top investigative release',
     ],
     reference: '@ThePOVNarrative · @fordinvestsUS · @theoshow22',
   },
   'ai-workflows': {
     id: 'ai-workflows',
-    title: 'AI Creative Automation',
-    shortLabel: 'AI Pipelines',
-    category: 'Generative Pipelines',
+    title: 'AI Workflows & Tooling',
+    shortLabel: 'AI Workflows',
+    category: 'Generative Production',
     summary:
-      'Modular prompt engineering, visual direction systems, and AI studio tooling to scale high-clarity digital production.',
+      'Modular prompt pipelines, visual direction systems, and custom studio utilities designed to scale high-clarity output.',
     highlights: [
       'Google Flow, Nano Banana Pro, and Whisper narration',
-      'Experimental web utilities directed in Google AI Studio',
+      'Browser workflow utilities directed in Google AI Studio',
     ],
     reference: 'Farhad Muse AI · Automation Editor · PakTransfer',
   },
   'ecommerce-brand': {
     id: 'ecommerce-brand',
-    title: 'Storefronts & Brand Curation',
+    title: 'E-Commerce & Brand Curation',
     shortLabel: 'E-Commerce',
     category: 'Digital Commerce',
     summary:
       'Creator merchandising, Shopify storefront architecture, visual product curation, and structured buyer pathways.',
     highlights: [
-      '266 live Pinterest pins (15 Nov 2026 snapshot)',
-      'Active EleCoStudio Shopify & Fourthwall merch shops',
+      '266 live Pinterest pins driving evergreen product discovery',
+      'Active EleCoStudio Shopify & Fourthwall merch storefronts',
     ],
     reference: 'EleCoStudio · Fourthwall · Benable · Easy Finds',
   },

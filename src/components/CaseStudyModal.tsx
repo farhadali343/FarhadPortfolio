@@ -50,12 +50,10 @@ export default function CaseStudyModal({ project, onClose }: CaseStudyModalProps
         {/* Sticky Drawer Header */}
         <div className="sticky top-0 z-10 bg-white/95 backdrop-blur-sm border-b border-slate-200 px-6 py-4 flex items-start justify-between gap-4">
           <div>
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 mb-1">
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-[#475569] mb-1">
               <span className="font-semibold text-[#2563EB]">
                 {project.categories.join(' · ')}
               </span>
-              <span aria-hidden="true">/</span>
-              <span>{project.statusLabel}</span>
               <span aria-hidden="true">/</span>
               <span className="font-mono-tabular">{project.timeframe}</span>
             </div>
@@ -99,8 +97,8 @@ export default function CaseStudyModal({ project, onClose }: CaseStudyModalProps
             </div>
 
             <div className="sm:col-span-7">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
-                Verified Outcomes &amp; Snapshots
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-[#475569] mb-3">
+                Outcomes &amp; Reach
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {project.results.map((result, idx) => (

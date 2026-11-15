@@ -668,19 +668,16 @@ export default function Studio3DShowcase() {
       className="no-print border-b border-slate-200/80 bg-[#F8FAFC]"
     >
       {/* Editorial Section Header Above the Viewport */}
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-16 pb-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-24 lg:pt-28 pb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <p className="font-mono-tabular text-xs font-semibold uppercase tracking-wider text-[#2563EB] mb-2">
-              Interactive WebGL · Soft Ceramic Studio
-            </p>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-[#0F172A]">
-              3D Production Workspace
+            <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-[#0F172A]">
+              Inside My Production Engine.
             </h2>
           </div>
-          <p className="text-sm sm:text-base text-slate-600 max-w-[52ch] leading-relaxed">
-            Orbit the workstation, switch studio lighting, explode the assembly, or click any
-            floating pillar pin to inspect its live systems and deliverables.
+          <p className="text-sm sm:text-base text-[#475569] max-w-[54ch] leading-relaxed">
+            Explore the four pillars behind my content, video, automation, and commerce systems in
+            real-time 3D.
           </p>
         </div>
       </div>
@@ -690,7 +687,7 @@ export default function Studio3DShowcase() {
         className={
           isFullscreen
             ? 'fixed inset-0 z-50 w-screen h-screen bg-[#EDF2F7]'
-            : 'mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pb-16'
+            : 'mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pb-24 lg:pb-32'
         }
       >
         <div
@@ -747,19 +744,13 @@ export default function Studio3DShowcase() {
           {/* Top-Left Minimal Spatial Title & Top-Right Fullscreen Trigger (No Backdrop Blur Over WebGL) */}
           <div className="pointer-events-none absolute top-4 left-4 right-4 flex items-start justify-between gap-3">
             <div
-              className={`pointer-events-auto rounded-xl border px-3.5 py-2 text-xs shadow-sm ${
+              className={`pointer-events-auto rounded-xl border px-4 py-2 text-xs shadow-sm ${
                 isDay
-                  ? 'bg-white/95 border-slate-200 text-slate-700'
-                  : 'bg-[#15191F]/95 border-[#2D3644] text-[#E2E8F0]'
+                  ? 'bg-white/95 border-slate-200 text-[#0F172A]'
+                  : 'bg-[#15191F]/95 border-[#2D3644] text-white'
               }`}
             >
-              <span className="font-mono-tabular font-semibold uppercase tracking-wider text-[#2563EB]">
-                STUDIO 3D
-              </span>
-              <span className="mx-2 opacity-40">|</span>
-              <span className={`font-semibold ${isDay ? 'text-[#0F172A]' : 'text-white'}`}>
-                {activeInfo.title}
-              </span>
+              <span className="font-semibold">{activeInfo.title}</span>
             </div>
 
             <div className="pointer-events-auto flex items-center gap-2">
@@ -788,23 +779,23 @@ export default function Studio3DShowcase() {
             </div>
           </div>
 
-          {/* Interactive Pillar Detail Drawer (Cleanly Tucked at Top-Left Below Header When Active) */}
+          {/* Interactive Pillar Detail Side Card (Cleanly Positioned When Any Pin Is Selected) */}
           {drawerOpen && (
-            <div
+            <aside
               role="region"
               aria-label={`${activeInfo.title} details`}
-              className={`pointer-events-auto absolute top-16 left-4 w-[calc(100%-2rem)] sm:w-80 rounded-2xl border p-4 shadow-[0_20px_40px_-15px_rgba(15,23,42,0.22)] ${
+              className={`pointer-events-auto absolute top-16 right-4 w-[calc(100%-2rem)] sm:w-80 rounded-2xl border p-5 shadow-[0_22px_44px_-14px_rgba(15,23,42,0.22)] ${
                 isDay
                   ? 'bg-white/95 border-slate-200 text-[#0F172A]'
                   : 'bg-[#15191F]/95 border-[#2D3644] text-white'
               }`}
             >
-              <div className="flex items-start justify-between gap-2 pb-2.5 mb-2.5 border-b border-slate-200/40">
+              <div className="flex items-start justify-between gap-2 pb-3 mb-3 border-b border-slate-200/40">
                 <div>
-                  <div className="font-mono-tabular text-[10px] font-semibold uppercase tracking-wider text-[#2563EB]">
+                  <div className="text-[11px] font-semibold uppercase tracking-wider text-[#2563EB]">
                     {activeInfo.category}
                   </div>
-                  <h3 className="font-display text-sm font-bold mt-0.5">{activeInfo.title}</h3>
+                  <h3 className="font-display text-base font-semibold mt-0.5">{activeInfo.title}</h3>
                 </div>
                 <button
                   type="button"
@@ -820,36 +811,45 @@ export default function Studio3DShowcase() {
 
               <p
                 className={`text-xs leading-relaxed ${
-                  isDay ? 'text-slate-600' : 'text-slate-300'
+                  isDay ? 'text-[#475569]' : 'text-slate-300'
                 }`}
               >
                 {activeInfo.summary}
               </p>
 
-              <ul className="mt-3 space-y-1.5">
-                {activeInfo.highlights.map((item) => (
-                  <li
-                    key={item}
-                    className={`flex items-start gap-2 text-[11px] leading-snug ${
-                      isDay ? 'text-slate-700' : 'text-slate-200'
-                    }`}
-                  >
-                    <span className="font-mono-tabular text-[#C28E36] mt-0.5">—</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="mt-4">
+                <div
+                  className={`text-[11px] font-semibold uppercase tracking-wider mb-2 ${
+                    isDay ? 'text-[#0F172A]' : 'text-slate-200'
+                  }`}
+                >
+                  What I Build
+                </div>
+                <ul className="space-y-1.5">
+                  {activeInfo.highlights.map((item) => (
+                    <li
+                      key={item}
+                      className={`flex items-start gap-2 text-xs leading-snug ${
+                        isDay ? 'text-[#475569]' : 'text-slate-200'
+                      }`}
+                    >
+                      <span className="font-mono-tabular text-[#2563EB] mt-0.5">—</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
               <div
-                className={`mt-3 pt-2.5 border-t text-[11px] font-mono-tabular ${
+                className={`mt-4 pt-3 border-t text-[11px] font-mono-tabular ${
                   isDay
-                    ? 'border-slate-200/80 text-slate-500'
+                    ? 'border-slate-200/80 text-[#475569]'
                     : 'border-slate-700 text-slate-400'
                 }`}
               >
                 {activeInfo.reference}
               </div>
-            </div>
+            </aside>
           )}
 
           {/* WebGL Fallback */}
