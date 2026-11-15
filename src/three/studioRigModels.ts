@@ -11,8 +11,10 @@ export type DisciplineId =
 export interface DisciplineMeta {
   id: DisciplineId;
   title: string;
+  shortLabel: string;
   category: string;
   summary: string;
+  highlights: string[];
   reference: string;
 }
 
@@ -20,44 +22,82 @@ export const STUDIO_DISCIPLINES: Record<DisciplineId, DisciplineMeta> = {
   'production-rig': {
     id: 'production-rig',
     title: 'AI & Cinema Production Rig',
+    shortLabel: 'Workstation',
     category: 'Core Creative Workstation',
     summary:
       'Central creative pipeline uniting script drafting, AI-assisted visual synthesis, multi-track video editing, and final color grading.',
-    reference: 'ThePOVNarrative · WhatTheByte · FordInvests',
+    highlights: [
+      'Multi-track hook, pacing, and audio synchronization',
+      'Directed AI imagery and voice workflows with manual QA',
+    ],
+    reference: 'The POV Narrative · WhatTheByte · Ford Invests',
   },
   'video-motion': {
     id: 'video-motion',
     title: 'Video & Motion Systems',
+    shortLabel: 'Video & Motion',
     category: 'Short & Long-Form Production',
     summary:
       'Retention-paced editing, hook architecture, 3D motion framing, and cross-platform vertical/widescreen visual workflows.',
-    reference: 'CapCut · Premiere Pro · After Effects',
+    highlights: [
+      '12 published Reels tracked in the 1–14 Nov 2026 sprint',
+      '5+ verified short-form quiz & educational video formats',
+    ],
+    reference: 'Remotion · FFmpeg · Python-Assisted Workflows',
   },
   'narrative-youtube': {
     id: 'narrative-youtube',
     title: 'YouTube & Narrative Channels',
+    shortLabel: 'YouTube Channels',
     category: 'Multi-Channel Publishing',
     summary:
       'End-to-end packaging, thumbnail hierarchy, voiceover pacing, and audience retention systems for global channels.',
+    highlights: [
+      '120 published videos & 118,142 channel views (Oct 2026 audit)',
+      '~68K peak views on top investigative upload',
+    ],
     reference: '@ThePOVNarrative · @fordinvestsUS · @theoshow22',
   },
   'ai-workflows': {
     id: 'ai-workflows',
     title: 'AI Creative Automation',
+    shortLabel: 'AI Pipelines',
     category: 'Generative Pipelines',
     summary:
-      'Modular prompt engineering, ComfyUI asset pipelines, and AI studio tooling to scale high-clarity digital production.',
-    reference: '100% AI-Generated Visual Showcase · Gemini / Flux',
+      'Modular prompt engineering, visual direction systems, and AI studio tooling to scale high-clarity digital production.',
+    highlights: [
+      'Google Flow, Nano Banana Pro, and Whisper narration',
+      'Experimental web utilities directed in Google AI Studio',
+    ],
+    reference: 'Farhad Muse AI · Automation Editor · PakTransfer',
   },
   'ecommerce-brand': {
     id: 'ecommerce-brand',
     title: 'Storefronts & Brand Curation',
+    shortLabel: 'E-Commerce',
     category: 'Digital Commerce',
     summary:
       'Creator merchandising, Shopify storefront architecture, visual product curation, and structured buyer pathways.',
-    reference: 'EleCoStudio Shopify · Fourthwall · Benable',
+    highlights: [
+      '266 live Pinterest pins (15 Nov 2026 snapshot)',
+      'Active EleCoStudio Shopify & Fourthwall merch shops',
+    ],
+    reference: 'EleCoStudio · Fourthwall · Benable · Easy Finds',
   },
 };
+
+export interface PillarHotspotSpec {
+  id: Exclude<DisciplineId, 'production-rig'>;
+  position: [number, number, number];
+  anchorHeight: number;
+}
+
+export const PILLAR_HOTSPOTS: PillarHotspotSpec[] = [
+  { id: 'video-motion', position: [-2.65, 0, 1.35], anchorHeight: 1.38 },
+  { id: 'narrative-youtube', position: [2.65, 0, 1.35], anchorHeight: 1.38 },
+  { id: 'ai-workflows', position: [-2.65, 0, -1.65], anchorHeight: 1.38 },
+  { id: 'ecommerce-brand', position: [2.65, 0, -1.65], anchorHeight: 1.38 },
+];
 
 export interface StudioMaterialsBundle {
   chassisMat: THREE.MeshStandardMaterial;
@@ -74,6 +114,7 @@ export interface StudioSceneObjects {
   root: THREE.Group;
   materials: StudioMaterialsBundle;
   stageRingMat: THREE.MeshStandardMaterial;
+  floorMat: THREE.MeshStandardMaterial;
   explodableParts: THREE.Object3D[];
   interactiveTargets: THREE.Object3D[];
   animatedSpinners: THREE.Object3D[];
@@ -810,17 +851,10 @@ export function buildCreativeStudioScene(
   interactiveTargets.push(rig);
 
   // 4. Four Discipline Totems positioned symmetrically around the hero rig
-  const totemSpecs: { id: Exclude<DisciplineId, 'production-rig'>; pos: THREE.Vector3 }[] = [
-    { id: 'video-motion', pos: new THREE.Vector3(-2.65, 0, 1.35) },
-    { id: 'narrative-youtube', pos: new THREE.Vector3(2.65, 0, 1.35) },
-    { id: 'ai-workflows', pos: new THREE.Vector3(-2.65, 0, -1.65) },
-    { id: 'ecommerce-brand', pos: new THREE.Vector3(2.65, 0, -1.65) },
-  ];
-
-  totemSpecs.forEach(({ id, pos }) => {
+  PILLAR_HOTSPOTS.forEach(({ id, position }) => {
     const totem = buildDisciplineTotem(
       id,
-      pos,
+      new THREE.Vector3(...position),
       materials,
       shadowTexture,
       explodableParts,
@@ -834,6 +868,7 @@ export function buildCreativeStudioScene(
     root,
     materials,
     stageRingMat,
+    floorMat,
     explodableParts,
     interactiveTargets,
     animatedSpinners,

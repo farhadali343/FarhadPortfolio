@@ -50,10 +50,6 @@ export interface ContactConfig {
   supportingText: string;
   email: string;
   emailIsPlaceholder: boolean;
-  whatsappLabel: string;
-  whatsappHref: string | null;
-  linkedinLabel: string;
-  linkedinHref: string | null;
   formEndpoint: string;
   socialLinks: ContactLink[];
   channelLinks: ContactLink[];
@@ -261,11 +257,7 @@ export const CONTACT_CONFIG: ContactConfig = {
     "Let's discuss your next digital project, creative collaboration, or content production requirements.",
   email: 'farhad0official@gmail.com',
   emailIsPlaceholder: false,
-  whatsappLabel: 'WhatsApp (Direct link pending confirmation)',
-  whatsappHref: null,
-  linkedinLabel: 'LinkedIn Profile (Public URL pending confirmation)',
-  linkedinHref: null,
-  formEndpoint: '', // Add Formspree / API endpoint URL here to enable direct form submission
+  formEndpoint: '',
   socialLinks: [
     {
       id: 'fb-business',

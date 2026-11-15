@@ -25,9 +25,9 @@ export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBo
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-[#F8F9FB] text-[#15191F] flex items-center justify-center p-6">
-          <div className="max-w-md w-full bg-white border border-[#E5E7EB] rounded-lg p-6">
-            <h1 className="font-display text-xl font-bold text-[#15191F]">
+        <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] flex items-center justify-center p-6">
+          <div className="max-w-md w-full bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+            <h1 className="font-display text-xl font-bold text-[#0F172A]">
               Unable to display section
             </h1>
             <p className="mt-2 text-sm text-[#68717D] leading-relaxed">

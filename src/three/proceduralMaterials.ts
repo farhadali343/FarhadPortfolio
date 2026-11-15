@@ -258,22 +258,31 @@ export function createStudioTimelineTexture(maxAnisotropy = 4): THREE.CanvasText
   return texture;
 }
 
+export type StudioLightingMode = 'daylight' | 'night';
+
 /**
  * Generates a subtle architectural studio grid floor texture (sRGB)
- * for grounded spatial depth without harsh contrast.
+ * calibrated for either Soft Ceramic Daylight or Night Studio lighting.
  */
-export function createFloorDiffuseTexture(maxAnisotropy = 4): THREE.CanvasTexture {
+export function createFloorDiffuseTexture(
+  maxAnisotropy = 4,
+  mode: StudioLightingMode = 'daylight'
+): THREE.CanvasTexture {
   const canvas = document.createElement('canvas');
   canvas.width = 512;
   canvas.height = 512;
   const ctx = canvas.getContext('2d');
 
+  const isDaylight = mode === 'daylight';
+
   if (ctx) {
-    ctx.fillStyle = '#12161d';
+    ctx.fillStyle = isDaylight ? '#eef2f7' : '#12161d';
     ctx.fillRect(0, 0, 512, 512);
 
-    // Subtle grid lines
-    ctx.strokeStyle = 'rgba(148, 163, 184, 0.08)';
+    // Subtle ceramic studio grid lines
+    ctx.strokeStyle = isDaylight
+      ? 'rgba(15, 23, 42, 0.065)'
+      : 'rgba(148, 163, 184, 0.08)';
     ctx.lineWidth = 1;
     for (let i = 0; i <= 512; i += 64) {
       ctx.beginPath();
@@ -287,8 +296,10 @@ export function createFloorDiffuseTexture(maxAnisotropy = 4): THREE.CanvasTextur
       ctx.stroke();
     }
 
-    // Major crosshairs
-    ctx.strokeStyle = 'rgba(59, 130, 246, 0.14)';
+    // Cobalt architectural major crosshairs
+    ctx.strokeStyle = isDaylight
+      ? 'rgba(37, 99, 235, 0.14)'
+      : 'rgba(59, 130, 246, 0.14)';
     ctx.lineWidth = 1.5;
     ctx.strokeRect(0, 0, 512, 512);
   }
